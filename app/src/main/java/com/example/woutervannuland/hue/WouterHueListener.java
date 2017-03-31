@@ -1,6 +1,5 @@
 package com.example.woutervannuland.hue;
 
-import android.content.Intent;
 import android.util.Log;
 
 import com.philips.lighting.hue.sdk.PHAccessPoint;
@@ -9,12 +8,18 @@ import com.philips.lighting.hue.sdk.PHSDKListener;
 import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHHueParsingError;
 
+
+
+
 import java.util.List;
 
 public class WouterHueListener implements PHSDKListener{
     private static final String TAG = "WouterHueListener";
     private final PHHueSDK phHueSdk;
     private final MainActivity woutersActivity;
+
+
+     String ip = "172.16.10.81";
 
     public WouterHueListener(PHHueSDK philipsDing, MainActivity myActivity) {
         this.phHueSdk = philipsDing;
@@ -32,12 +37,16 @@ public class WouterHueListener implements PHSDKListener{
 //        phHueSdk.enableHeartbeat(phBridge, PHHueSDK.HB_INTERVAL / 2);
         Log.d(TAG, "onBridgeConnected: ");
 
-        woutersActivity.watIkWildeDoen(phBridge);
+        woutersActivity.showHueOnConnectedBridge(phBridge);
+        woutersActivity.changingLightColors(phBridge);
     }
 
     @Override
     public void onAuthenticationRequired(PHAccessPoint phAccessPoint) {
         phHueSdk.startPushlinkAuthentication(phAccessPoint);
+
+        // TODO show pushlink image and timer.
+
         Log.d(TAG, "onAuthenticationRequired: WOUTER TAKE IT TO THE BRIDGE!");
         Log.d(TAG, "onAuthenticationRequired: " + phAccessPoint.getIpAddress());
     }
@@ -48,11 +57,25 @@ public class WouterHueListener implements PHSDKListener{
     public void onAccessPointsFound(List<PHAccessPoint> list) {
         Log.d(TAG, "onAccessPointsFound: ");
         for(PHAccessPoint ap : list) {
-            phHueSdk.connect(ap);
+//            phHueSdk.connect(ap);
             Log.d(TAG, "onAccessPointsFound: " + ap.getIpAddress());
             Log.d(TAG, "onAccessPointsFound: " + ap.getMacAddress());
             Log.d(TAG, "onAccessPointsFound: " + ap.getBridgeId());
             Log.d(TAG, "onAccessPointsFound: " + ap.getUsername());
+
+            // to set the last known ipAddress and Username.
+      //      ap.setIpAddress("172.16.10.81");
+       //     ap.setUsername("null");
+
+            if (ap.getIpAddress().equals(ip)) {
+                phHueSdk.connect(ap);
+                Log.d(TAG, "onAccessPointsFound: " + " connected" + ip);
+            }
+
+            //store every bridge in listview
+
+
+
         }
     }
 
