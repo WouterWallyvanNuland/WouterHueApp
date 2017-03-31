@@ -8,13 +8,25 @@
     tools:context="com.example.woutervannuland.hue.MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button6"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="21dp"
+        android:text="Yellow"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="424dp"
+        android:background="#ffef00"
+        android:layout_below="@+id/button1"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_alignStart="@+id/button1" />
+
+    <Button
+        android:id="@+id/button1"
         android:layout_width="100dp"
         android:layout_height="45dp"
         android:layout_alignLeft="@+id/button3"
         android:layout_alignStart="@+id/button3"
         android:layout_below="@+id/button3"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"
         android:background="@android:color/holo_blue_light"
         android:text="Blue"
