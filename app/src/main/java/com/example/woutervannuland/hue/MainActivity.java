@@ -15,11 +15,11 @@ import com.philips.lighting.model.PHLightState;
 
 
 import java.util.List;
-import java.util.Timer;
 
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ActivityChecker {
     private static final String TAG = "MainActivity";
 
     // create all variables that i need in my Main.

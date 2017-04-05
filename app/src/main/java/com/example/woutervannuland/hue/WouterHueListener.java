@@ -16,14 +16,15 @@ import java.util.List;
 public class WouterHueListener implements PHSDKListener{
     private static final String TAG = "WouterHueListener";
     private final PHHueSDK phHueSdk;
-    private final MainActivity woutersActivity;
+    private final ActivityChecker dikkeLul;
+//    private final FindingBridgeActivititties findBridge;
 
 
-     String ip = "172.16.10.81";
+     String ip = "172.16.10.165";
 
-    public WouterHueListener(PHHueSDK philipsDing, MainActivity myActivity) {
+    public WouterHueListener(PHHueSDK philipsDing, ActivityChecker myActivity) {
         this.phHueSdk = philipsDing;
-        this.woutersActivity = myActivity;
+        this.dikkeLul = myActivity;
     }
 
     @Override
@@ -37,8 +38,9 @@ public class WouterHueListener implements PHSDKListener{
 //        phHueSdk.enableHeartbeat(phBridge, PHHueSDK.HB_INTERVAL / 2);
         Log.d(TAG, "onBridgeConnected: ");
 
-        woutersActivity.showHueOnConnectedBridge(phBridge);
-        woutersActivity.changingLightColors(phBridge);
+        dikkeLul.showHueOnConnectedBridge(phBridge);
+        dikkeLul.changingLightColors(phBridge);
+
     }
 
     @Override

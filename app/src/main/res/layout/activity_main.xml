@@ -24,14 +24,14 @@
         android:id="@+id/button1"
         android:layout_width="100dp"
         android:layout_height="45dp"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignStart="@+id/button3"
-        android:layout_below="@+id/button3"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="22dp"
         android:background="@android:color/holo_blue_light"
         android:text="Blue"
         tools:layout_editor_absoluteX="142dp"
-        tools:layout_editor_absoluteY="424dp" />
+        tools:layout_editor_absoluteY="424dp"
+        android:layout_below="@+id/button3"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_alignStart="@+id/button3" />
 
     <Button
         android:id="@+id/button3"
@@ -41,9 +41,10 @@
         android:text="Green"
         tools:layout_editor_absoluteX="142dp"
         tools:layout_editor_absoluteY="370dp"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/button2"
         android:layout_alignLeft="@+id/button2"
-        android:layout_alignStart="@+id/button2" />
+        android:layout_alignStart="@+id/button2"
+        android:layout_marginTop="23dp" />
 
 
     <Button
