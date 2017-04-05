@@ -16,7 +16,7 @@ import java.util.List;
 public class WouterHueListener implements PHSDKListener{
     private static final String TAG = "WouterHueListener";
     private final PHHueSDK phHueSdk;
-    private final ActivityChecker dikkeLul;
+    private final ActivityChecker activityChecker;
 //    private final FindingBridgeActivititties findBridge;
 
 
@@ -24,7 +24,7 @@ public class WouterHueListener implements PHSDKListener{
 
     public WouterHueListener(PHHueSDK philipsDing, ActivityChecker myActivity) {
         this.phHueSdk = philipsDing;
-        this.dikkeLul = myActivity;
+        this.activityChecker = myActivity;
     }
 
     @Override
@@ -38,8 +38,8 @@ public class WouterHueListener implements PHSDKListener{
 //        phHueSdk.enableHeartbeat(phBridge, PHHueSDK.HB_INTERVAL / 2);
         Log.d(TAG, "onBridgeConnected: ");
 
-        dikkeLul.showHueOnConnectedBridge(phBridge);
-        dikkeLul.changingLightColors(phBridge);
+        activityChecker.showHueOnConnectedBridge(phBridge);
+        activityChecker.changingLightColors(phBridge);
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.woutervannuland.hue;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +20,7 @@ import java.util.List;
 
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, ActivityChecker {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
 
     // create all variables that i need in my Main.
@@ -69,17 +70,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
-        myListener = new WouterHueListener(phHueSDK, this);
-        phHueSDK.getNotificationManager().registerSDKListener(myListener);
+        // TODO uitzoeken of er een bridge was waar ooit mee geconnect is.
 
-        PHBridgeSearchManager searchManager = (PHBridgeSearchManager) phHueSDK.getSDKService(PHHueSDK.SEARCH_BRIDGE);
-        searchManager.search(true, true);
-    }
+        PHBridge selectedBridge = phHueSDK.getSelectedBridge();
+        if (selectedBridge == null) {
+            // als er geen bridge is opnieuw naar het zoek bridge scherm.
+            toFindingBridgeActivity();
+        } else {
+            // hier heb je al een bridge
+            toLampActivity();
+        }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        phHueSDK.getNotificationManager().unregisterSDKListener(myListener);
     }
 
     @Override
@@ -157,18 +158,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void showHueOnConnectedBridge(PHBridge verbondenBridge) {
-        Log.d(TAG, "watIkWildeDoen:");
-
-        //Receive all lights from bridge
-        List<PHLight> gevondenLampen = verbondenBridge.getResourceCache().getAllLights();
-
-        for (PHLight lamp : gevondenLampen) {
-            Log.d(TAG, "watIkWildeDoen: " + lamp.getName());
-            Log.d(TAG, "showHueOnConnectedBridge: " + lamp.getUniqueId());
-            Log.d(TAG, "showHueOnConnectedBridge: " + lamp.getIdentifier());
-            }
-    }
 
     public void changingLightColors(PHBridge receivedBridge) {
 
@@ -273,6 +262,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // redState.setY(0.3223f);
 
         return redState1;
+    }
+
+    private void toFindingBridgeActivity() {
+        Intent i = new Intent(this, FindingBridgeActivititties.class);
+        startActivity(i);
+    }
+
+    private void toLampActivity() {
+        Intent j = new Intent(this, LampActivity.class);
+        startActivity(j);
     }
 
 }

@@ -19,7 +19,7 @@ import java.util.Timer;
 import java.util.List;
 
 public class FindingBridgeActivititties extends AppCompatActivity implements View.OnClickListener, ActivityChecker {
-
+    private static final String TAG = "FindingBridgeActivititt";
     TextView textview;
     TextView textview2;
     TextView textview3;
@@ -47,6 +47,7 @@ public class FindingBridgeActivititties extends AppCompatActivity implements Vie
         hiddenButton.setOnClickListener(this);
 
 
+
     }
 
 
@@ -62,6 +63,7 @@ public class FindingBridgeActivititties extends AppCompatActivity implements Vie
     protected void onResume() {
         super.onResume();
 
+        phHueSDK = PHHueSDK.getInstance();
         phHueSDK.getNotificationManager().registerSDKListener(myListener);
 
         PHBridgeSearchManager searchManager = (PHBridgeSearchManager) phHueSDK.getSDKService(PHHueSDK.SEARCH_BRIDGE);
@@ -89,14 +91,25 @@ public class FindingBridgeActivititties extends AppCompatActivity implements Vie
     }
 
     @Override
-    public void showHueOnConnectedBridge(PHBridge verbondenBridge) {
-        //
-    }
-
-    @Override
     public void changingLightColors(PHBridge receivedBridge) {
         //
     }
+
+    public void showHueOnConnectedBridge(PHBridge verbondenBridge) {
+        Log.d(TAG, "watIkWildeDoen:");
+
+        //Receive all lights from bridge
+        List<PHLight> gevondenLampen = verbondenBridge.getResourceCache().getAllLights();
+
+        for (PHLight lamp : gevondenLampen) {
+            Log.d(TAG, "watIkWildeDoen: " + lamp.getName());
+            Log.d(TAG, "showHueOnConnectedBridge: " + lamp.getUniqueId());
+            Log.d(TAG, "showHueOnConnectedBridge: " + lamp.getIdentifier());
+        }
+
+
+    }
+
 }
 
 
