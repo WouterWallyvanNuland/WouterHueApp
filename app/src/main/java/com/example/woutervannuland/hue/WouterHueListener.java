@@ -17,10 +17,10 @@ public class WouterHueListener implements PHSDKListener{
     private static final String TAG = "WouterHueListener";
     private final PHHueSDK phHueSdk;
     private final ActivityChecker activityChecker;
-//    private final FindingBridgeActivititties findBridge;
+//    private final FindingBridgeActivity findBridge;
 
 
-     String ip = "172.16.10.165";
+     String ip = "172.16.10.180";
 
     public WouterHueListener(PHHueSDK philipsDing, ActivityChecker myActivity) {
         this.phHueSdk = philipsDing;

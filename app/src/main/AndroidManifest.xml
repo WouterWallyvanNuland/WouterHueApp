@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FindingBridgeActivititties"></activity>
+        <activity android:name=".FindingBridgeActivity"></activity>
         <activity android:name=".LampActivity"></activity>
     </application>
 
