@@ -25,12 +25,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     Button button6;
     TextView textView2;
 
-    public LampActivity(List<PHLight> connectedHueList) {
-        this.connectedHueList = connectedHueList;
-        // show this info in textview
-
-    }
-
+    // Tip van de dag: Activities mogen geen constructor hebben
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

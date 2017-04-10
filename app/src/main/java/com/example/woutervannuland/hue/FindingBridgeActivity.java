@@ -1,5 +1,6 @@
 package com.example.woutervannuland.hue;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -45,53 +46,8 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
 
         PHBridgeSearchManager searchManager = (PHBridgeSearchManager) phHueSDK.getSDKService(PHHueSDK.SEARCH_BRIDGE);
         searchManager.search(true, true);
-
-
-
-
-
-
-
+        Log.d(TAG, "onResume: Search for Hue Bridge started");
     }
-
-    @Override
-    public void onAccessPointsFound(List<PHAccessPoint> list) {
-        Log.d(TAG, "onAccessPointsFound: ");
-        for(PHAccessPoint ap : list) {
-            System.out.println("Komt ie hier uberHAUPT wel voorbij?");
-            phHueSDK.connect(ap);
-            Log.d(TAG, "onAccessPointsFound: " + ap.getIpAddress());
-            Log.d(TAG, "onAccessPointsFound: " + ap.getMacAddress());
-            Log.d(TAG, "onAccessPointsFound: " + ap.getBridgeId());
-
-            // to set the last known ipAddress and Username.
-            //      ap.setIpAddress("172.16.10.81");
-            //     ap.setUsername("null");
-
-            if (ap.getIpAddress().equals(ip)) {
-                phHueSDK.connect(ap);
-                Log.d(TAG, "onAccessPointsFound: " + " connected" + ip);
-            }
-
-            //store every bridge in listview
-
-
-
-        }
-    }
-
-    @Override
-    public void onAuthenticationRequired(PHAccessPoint phAccessPoint) {
-        phHueSDK.startPushlinkAuthentication(phAccessPoint);
-
-        // TODO show pushlink image and timer.
-
-        Log.d(TAG, "onAuthenticationRequired: WOUTER TAKE IT TO THE BRIDGE!");
-
-        // play sample
-        Log.d(TAG, "onAuthenticationRequired: " + phAccessPoint.getIpAddress());
-    }
-
 
     public void showHueOnConnectedBridge(PHBridge verbondenBridge) {
         Log.d(TAG, "watIkWildeDoen:");
@@ -107,9 +63,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
             Log.d(TAG, "showHueOnConnectedBridge: " + lamp.getIdentifier());
         }
 
-
-
-
+        toConnectedLampActivity();
     }
 
     @Override
@@ -118,9 +72,10 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
     }
 
     public void toConnectedLampActivity() {
-        // doe ik dat hier of doe ik dat in de main?
+        // doe ik dat hier of doe ik dat in de main? (Antwoord = HIER!)
+        Intent startAct = new Intent(this, LampActivity.class);
+        startActivity(startAct);
     }
-
 }
 
 

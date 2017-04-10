@@ -20,7 +20,8 @@ public class WouterHueListener implements PHSDKListener{
 //    private final FindingBridgeActivity findBridge;
 
 
-     String ip = "172.16.10.180";
+//     private String ip = "172.16.10.180";
+    private String ip = "192.168.2.3";
 
     public WouterHueListener(PHHueSDK philipsDing, ActivityChecker myActivity) {
         this.phHueSdk = philipsDing;
@@ -59,25 +60,17 @@ public class WouterHueListener implements PHSDKListener{
     public void onAccessPointsFound(List<PHAccessPoint> list) {
         Log.d(TAG, "onAccessPointsFound: ");
         for(PHAccessPoint ap : list) {
-//            phHueSdk.connect(ap);
+            // Print alle AP informatie (bridge basic info)
             Log.d(TAG, "onAccessPointsFound: " + ap.getIpAddress());
             Log.d(TAG, "onAccessPointsFound: " + ap.getMacAddress());
             Log.d(TAG, "onAccessPointsFound: " + ap.getBridgeId());
             Log.d(TAG, "onAccessPointsFound: " + ap.getUsername());
 
-            // to set the last known ipAddress and Username.
-      //      ap.setIpAddress("172.16.10.81");
-       //     ap.setUsername("null");
-
+            // Connect met degene die we zoeken (juiste IP)
             if (ap.getIpAddress().equals(ip)) {
                 phHueSdk.connect(ap);
-                Log.d(TAG, "onAccessPointsFound: " + " connected" + ip);
+                Log.d(TAG, "onAccessPointsFound: Connecting to " + ip);
             }
-
-            //store every bridge in listview
-
-
-
         }
     }
 
