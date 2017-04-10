@@ -7,5 +7,4 @@ import com.philips.lighting.model.PHBridge;
  */
 public interface ActivityChecker {
     void showHueOnConnectedBridge(PHBridge verbondenBridge);
-    void changingLightColors(PHBridge receivedBridge);
 }

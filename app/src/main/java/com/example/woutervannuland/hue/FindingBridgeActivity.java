@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.example.woutervannuland.hue.storage.BridgeStorage;
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHBridgeSearchManager;
 import com.philips.lighting.hue.sdk.PHHueSDK;
@@ -24,6 +25,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
     private WouterHueListener myListener;
     private PHBridge verbondenBridge;
     private List<PHAccessPoint> connectedHueList;
+    private BridgeStorage bridgeStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
 
         TextView textView1 = (TextView) findViewById(R.id.textView1);
         TextView textView3 = (TextView) findViewById(R.id.textView3);
+
+        bridgeStorage = new BridgeStorage(this);
     }
 
 
@@ -52,6 +56,8 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
     public void showHueOnConnectedBridge(PHBridge verbondenBridge) {
         Log.d(TAG, "watIkWildeDoen:");
 
+        bridgeStorage.storeBridge(verbondenBridge.getResourceCache().getBridgeConfiguration());
+
         //Receive all lights from bridge
         List<PHLight> gevondenLampen = verbondenBridge.getResourceCache().getAllLights();
 
@@ -64,11 +70,6 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         }
 
         toConnectedLampActivity();
-    }
-
-    @Override
-    public void changingLightColors(PHBridge receivedBridge) {
-
     }
 
     public void toConnectedLampActivity() {

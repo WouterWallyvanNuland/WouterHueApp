@@ -35,13 +35,16 @@ public class WouterHueListener implements PHSDKListener{
 
     @Override
     public void onBridgeConnected(PHBridge phBridge, String username) {
+
+        phBridge.getResourceCache().getBridgeConfiguration().getIpAddress();
+        phBridge.getResourceCache().getBridgeConfiguration().getMacAddress();
+        phBridge.getResourceCache().getBridgeConfiguration().getUsername();
+
         phHueSdk.setSelectedBridge(phBridge);
 //        phHueSdk.enableHeartbeat(phBridge, PHHueSDK.HB_INTERVAL / 2);
         Log.d(TAG, "onBridgeConnected: ");
 
         activityChecker.showHueOnConnectedBridge(phBridge);
-        activityChecker.changingLightColors(phBridge);
-
     }
 
     @Override

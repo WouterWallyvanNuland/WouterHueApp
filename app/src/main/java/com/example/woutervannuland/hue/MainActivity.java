@@ -3,7 +3,10 @@ package com.example.woutervannuland.hue;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.example.woutervannuland.hue.storage.BridgeStorage;
+import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.model.PHBridge;
 
@@ -15,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private PHHueSDK phHueSDK;
     private WouterHueListener myListener;
     private PHBridge verbondenBridge;
+    private BridgeStorage bridgeStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         phHueSDK.setAppName("WouterHue");
         phHueSDK.setDeviceName(android.os.Build.MODEL);
 
+        bridgeStorage = new BridgeStorage(this);
     }
 
     @Override
@@ -33,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO uitzoeken of er een bridge was waar ooit mee geconnect is.
 
+        PHAccessPoint storedBridge = bridgeStorage.loadStoredBridge();
+        if(storedBridge == null) {
+            Log.e(TAG, "onResume: NO BRIDGE STORED");
+        }
+        else {
+            Log.d(TAG, "onResume: BRIDGE IP " + storedBridge.getIpAddress());
+        }
 
         PHBridge selectedBridge = phHueSDK.getSelectedBridge();
         System.out.println("No bridges found! So we need to find one in FindingBridgeActivity");
