@@ -65,13 +65,15 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
         // en hier alle lampen
         List<PHLight> allLights = verbondenBridge.getResourceCache().getAllLights();
-        for (PHLight lights : allLights) {
-            if (allLights != null) {
-                // TODO show all lights in a list view to the user
-            }
-        }
-
+        connectedHueList = allLights;
     }
+//        for (PHLight lights : allLights) {
+//            if (allLights != null) {
+//                // TODO show all lights in a list view to the user
+//            }
+//        }
+
+
 
     public void onClick(View v) {
         switch (v.getId()) {
