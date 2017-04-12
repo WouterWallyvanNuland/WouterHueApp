@@ -18,11 +18,11 @@ public class WouterHueListener implements PHSDKListener{
     private final PHHueSDK phHueSdk;
     private final ActivityChecker activityChecker;
 
-    private String fourtressBridgeIp = "172.16.10.18";
+    private String fourtressBridgeIp = "172.16.10.92";
     private String lampenRickIp = "192.168.2.3";
     private String lampenWallyIp = "192.168.2.20";
-//    private String selectedIP = fourtressBridgeIp;
-    private String selectedIP = lampenRickIp;
+    private String selectedIP = fourtressBridgeIp;
+//    private String selectedIP = lampenRickIp;
 //    private String selectedIP = lampenWallyIp;
 
     public WouterHueListener(PHHueSDK philipsDing, ActivityChecker myActivity) {
@@ -54,6 +54,8 @@ public class WouterHueListener implements PHSDKListener{
 
         Log.d(TAG, "onAuthenticationRequired: WOUTER TAKE IT TO THE BRIDGE!");
         Log.d(TAG, "onAuthenticationRequired: " + phAccessPoint.getIpAddress());
+
+
     }
 
 

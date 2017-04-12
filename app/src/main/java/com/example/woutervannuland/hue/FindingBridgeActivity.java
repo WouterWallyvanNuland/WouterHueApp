@@ -22,7 +22,6 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
 
     private PHHueSDK phHueSDK;
     private WouterHueListener myListener;
-    private PHBridge verbondenBridge;
     private List<PHAccessPoint> connectedHueList;
 
     @Override
@@ -30,8 +29,9 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finding_bridge);
 
-        TextView textView1 = (TextView) findViewById(R.id.textView1);
-        TextView textView3 = (TextView) findViewById(R.id.textView3);
+        textView1 = (TextView) findViewById(R.id.textView1);
+        textView3 = (TextView) findViewById(R.id.textView3);
+
     }
 
 
@@ -49,8 +49,20 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         Log.d(TAG, "onResume: Search for Hue Bridge started");
     }
 
-    public void showHueOnConnectedBridge(PHBridge verbondenBridge) {
+    public void showHueOnConnectedBridge(final PHBridge verbondenBridge) {
         Log.d(TAG, "watIkWildeDoen:");
+
+        runOnUiThread(new Runnable() {
+
+
+            @Override
+            public void run() {
+                String verbondenBridgeIP = verbondenBridge.getResourceCache().getBridgeConfiguration().getIpAddress().toString();
+                textView3.setText(verbondenBridgeIP);
+            }
+        });
+
+
 
         //Receive all lights from bridge
         List<PHLight> gevondenLampen = verbondenBridge.getResourceCache().getAllLights();
@@ -61,6 +73,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
             Log.d(TAG, "watIkWildeDoen: " + lamp.getName());
             Log.d(TAG, "showHueOnConnectedBridge: " + lamp.getUniqueId());
             Log.d(TAG, "showHueOnConnectedBridge: " + lamp.getIdentifier());
+
         }
 
         toConnectedLampActivity();
@@ -74,6 +87,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
     public void toConnectedLampActivity() {
         // doe ik dat hier of doe ik dat in de main? (Antwoord = HIER!)
         Intent startAct = new Intent(this, LampActivity.class);
+
         startActivity(startAct);
     }
 }

@@ -80,6 +80,24 @@
         android:text="setIpBridge" />
 
     <TextView
+        android:id="@+id/textView3"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="setIpBridge" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="setIpBridge" />
+
+    <TextView
         android:id="@+id/textView2"
         android:layout_width="190dp"
         android:layout_height="wrap_content"

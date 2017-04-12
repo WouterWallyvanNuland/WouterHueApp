@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.model.PHBridge;
+import com.philips.lighting.model.PHBridgeResourcesCache;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
@@ -23,7 +24,10 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     Button button4;
     Button button5;
     Button button6;
+    TextView textView1;
     TextView textView2;
+    TextView textView3;
+    TextView textView4;
 
     // Tip van de dag: Activities mogen geen constructor hebben
 
@@ -51,7 +55,11 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         button6 = (Button) findViewById(R.id.button6);
         button6.setOnClickListener (this);
 
+        textView1 = (TextView) findViewById(R.id.textView1);
         textView2 = (TextView) findViewById(R.id.textView2);
+        textView3 = (TextView) findViewById(R.id.textView3);
+        textView4 = (TextView) findViewById(R.id.textView4);
+
 
 
     }
@@ -61,7 +69,11 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         // hier heb je de bridge weer
         verbondenBridge = PHHueSDK.getInstance().getSelectedBridge();
-        textView2.setText(verbondenBridge.toString());
+        textView2.setText(verbondenBridge.getResourceCache().getAllGroups().toString());
+        textView3.setText(verbondenBridge.getResourceCache().getAllLights().toArray().toString());
+
+        PHBridgeResourcesCache bridgeInfo = verbondenBridge.getResourceCache();
+
 
         // en hier alle lampen
         List<PHLight> allLights = verbondenBridge.getResourceCache().getAllLights();
@@ -148,9 +160,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.textView1:
                 // set text to connected ip Bridge
-                for (PHLight thisConnectedHueList : connectedHueList) {
 
-                }
+
+
 
         }
         }
