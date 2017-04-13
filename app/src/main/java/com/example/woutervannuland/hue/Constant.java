@@ -14,7 +14,7 @@ public final class Constant {
 //    private String GEKOZEN_IP = RICK_LAMPEN_IP;
 //    private String GEKOZEN_IP = EIGEN_LAMPEN_IP;
 
-    public static final String[] historyIP = {"192.168.2.20", "192.168.2.3", "172.16.10.92"};
+    public static final String[] HISTORY_IP = {"192.168.2.20", "192.168.2.3", "172.16.10.92"};
 
     }
 

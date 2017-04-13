@@ -16,7 +16,6 @@ import java.util.List;
 
 public class FindingBridgeActivity extends AppCompatActivity implements ActivityChecker {
     private static final String TAG = "FindingBridgeActivity";
-    private String ip = "";
     TextView textView3;
     TextView textView1;
 
@@ -34,8 +33,6 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
 
     }
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -52,28 +49,23 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
     public void showHueOnConnectedBridge(final PHBridge verbondenBridge) {
         Log.d(TAG, "watIkWildeDoen:");
 
-        runOnUiThread(new Runnable() {
+        String verbondenBridgeIP = verbondenBridge.getResourceCache().getBridgeConfiguration().getIpAddress().toString();
 
+        System.out.println("DE HUE IS VERBONDEN MET HET VOLGENDE IP ADRES: " + verbondenBridgeIP);
 
-            @Override
-            public void run() {
-                String verbondenBridgeIP = verbondenBridge.getResourceCache().getBridgeConfiguration().getIpAddress().toString();
-                textView3.setText(verbondenBridgeIP);
-            }
-        });
-
-
+//        if (verbondenBridgeIP.equals(Constant.EIGEN_LAMPEN_IP)) {
+//            textView3.setText(verbondenBridgeIP);
+//        } else if (verbondenBridgeIP.equals(Constant.FOURTRESS_LAMPEN_IP)) {
+//            textView3.setText(verbondenBridgeIP);
+//        } else if (verbondenBridgeIP.equals(Constant.RICK_LAMPEN_IP)) {
+//            textView3.setText(verbondenBridgeIP);
+//
+//        }
 
         //Receive all lights from bridge
         List<PHLight> gevondenLampen = verbondenBridge.getResourceCache().getAllLights();
-
-        // lijst nog tonen aan user.
-
         for (PHLight lamp : gevondenLampen) {
             Log.d(TAG, "watIkWildeDoen: " + lamp.getName());
-            Log.d(TAG, "showHueOnConnectedBridge: " + lamp.getUniqueId());
-            Log.d(TAG, "showHueOnConnectedBridge: " + lamp.getIdentifier());
-
         }
 
         toConnectedLampActivity();

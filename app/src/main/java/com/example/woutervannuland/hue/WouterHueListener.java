@@ -18,13 +18,6 @@ public class WouterHueListener implements PHSDKListener{
     private final PHHueSDK phHueSdk;
     private final ActivityChecker activityChecker;
 
-    private String fourtressBridgeIp = "172.16.10.92";
-    private String lampenRickIp = "192.168.2.3";
-    private String lampenWallyIp = "192.168.2.20";
-    private String selectedIP = fourtressBridgeIp;
-//    private String selectedIP = lampenRickIp;
-//    private String selectedIP = lampenWallyIp;
-
     public WouterHueListener(PHHueSDK philipsDing, ActivityChecker myActivity) {
         this.phHueSdk = philipsDing;
         this.activityChecker = myActivity;
@@ -54,8 +47,6 @@ public class WouterHueListener implements PHSDKListener{
 
         Log.d(TAG, "onAuthenticationRequired: WOUTER TAKE IT TO THE BRIDGE!");
         Log.d(TAG, "onAuthenticationRequired: " + phAccessPoint.getIpAddress());
-
-
     }
 
 
@@ -63,7 +54,7 @@ public class WouterHueListener implements PHSDKListener{
     @Override
     public void onAccessPointsFound(List<PHAccessPoint> list) {
         Log.d(TAG, "onAccessPointsFound: ");
-        for(PHAccessPoint ap : list) {
+        for (PHAccessPoint ap : list) {
             // Print alle AP informatie (bridge basic info)
             Log.d(TAG, "onAccessPointsFound: " + ap.getIpAddress());
             Log.d(TAG, "onAccessPointsFound: " + ap.getMacAddress());
@@ -71,7 +62,14 @@ public class WouterHueListener implements PHSDKListener{
             Log.d(TAG, "onAccessPointsFound: " + ap.getUsername());
 
             // Connect met degene die we zoeken (juiste IP)
-            if (ap.getIpAddress().equals(selectedIP)) {
+            if (ap.getIpAddress().equals(Constant.EIGEN_LAMPEN_IP)) {
+                Log.d(TAG, "onAccessPointsFound: Connecting to " + ap.getIpAddress());
+                phHueSdk.connect(ap);
+
+            } else if (ap.getIpAddress().equals(Constant.FOURTRESS_LAMPEN_IP)) {
+                Log.d(TAG, "onAccessPointsFound: Connecting to " + ap.getIpAddress());
+                phHueSdk.connect(ap);
+            } else if (ap.getIpAddress().equals(Constant.RICK_LAMPEN_IP)) {
                 Log.d(TAG, "onAccessPointsFound: Connecting to " + ap.getIpAddress());
                 phHueSdk.connect(ap);
             }

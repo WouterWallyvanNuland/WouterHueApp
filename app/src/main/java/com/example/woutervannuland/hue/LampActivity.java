@@ -26,8 +26,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     Button button6;
     TextView textView1;
     TextView textView2;
-    TextView textView3;
-    TextView textView4;
+
 
     // Tip van de dag: Activities mogen geen constructor hebben
 
@@ -57,8 +56,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
         textView1 = (TextView) findViewById(R.id.textView1);
         textView2 = (TextView) findViewById(R.id.textView2);
-        textView3 = (TextView) findViewById(R.id.textView3);
-        textView4 = (TextView) findViewById(R.id.textView4);
+
 
 
 
@@ -69,23 +67,18 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         // hier heb je de bridge weer
         verbondenBridge = PHHueSDK.getInstance().getSelectedBridge();
-        textView2.setText(verbondenBridge.getResourceCache().getAllGroups().toString());
-        textView3.setText(verbondenBridge.getResourceCache().getAllLights().toArray().toString());
-
-        PHBridgeResourcesCache bridgeInfo = verbondenBridge.getResourceCache();
-
 
         // en hier alle lampen
         List<PHLight> allLights = verbondenBridge.getResourceCache().getAllLights();
         connectedHueList = allLights;
+
+
+        String connectedIP = Constant.GEKOZEN_IP;
+        int tmp = connectedHueList.size();
+        textView1.setText(("Ip-adres: " + connectedIP));
+        textView2.setText("Verbonden met " + tmp + " lampen..");
+
     }
-//        for (PHLight lights : allLights) {
-//            if (allLights != null) {
-//                // TODO show all lights in a list view to the user
-//            }
-//        }
-
-
 
     public void onClick(View v) {
         switch (v.getId()) {
@@ -158,11 +151,6 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
 
-            case R.id.textView1:
-                // set text to connected ip Bridge
-
-
-
 
         }
         }
@@ -222,10 +210,11 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
     public PHLightState changeHue0ToColorBlue() {
         final PHLightState blueState0 = new PHLightState();
-        blueState0.setHue(46920, true);
+  //      blueState0.setHue(46920, true);
+          blueState0.setHue(46920, true);
 
-        //   blueState.setX(0.1691f);
-        //   blueState.setY(0.0441f);
+//          blueState0.setX(0.1691f);
+//          blueState0.setY(0.0441f);
 
         return blueState0;
     }
