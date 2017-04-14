@@ -2,6 +2,7 @@ package com.example.woutervannuland.hue;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
@@ -17,7 +18,10 @@ import java.util.List;
 public class FindingBridgeActivity extends AppCompatActivity implements ActivityChecker {
     private static final String TAG = "FindingBridgeActivity";
     TextView textView3;
+    TextView textViewSetTimer;
     TextView textView1;
+    CountDownTimer afteller;
+
 
     private PHHueSDK phHueSDK;
     private WouterHueListener myListener;
@@ -29,14 +33,29 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         setContentView(R.layout.activity_finding_bridge);
 
         textView1 = (TextView) findViewById(R.id.textView1);
-        textView3 = (TextView) findViewById(R.id.textViewTimer);
+        textView3 = (TextView) findViewById(R.id.textViewSetIp);
         textView3.setText(Constant.GEKOZEN_IP);
+        textViewSetTimer = (TextView) findViewById(R.id.textViewSetTimer);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+            afteller = new CountDownTimer(30000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    textViewSetTimer.setText("Seconds remaining to connect: " + millisUntilFinished / 1000);
+                }
+
+                public void onFinish() {
+
+                    toAskIPActivity();
+                }
+            }.start();
+
+
 
         phHueSDK = PHHueSDK.getInstance();
         myListener = new WouterHueListener(phHueSDK, this);
@@ -69,7 +88,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         for (PHLight lamp : gevondenLampen) {
             Log.d(TAG, "watIkWildeDoen: " + lamp.getName());
         }
-
+        afteller.cancel();
         toConnectedLampActivity();
     }
 
@@ -84,6 +103,12 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
 
         startActivity(startAct);
     }
+
+    public void toAskIPActivity() {
+        Intent startAct = new Intent(this, AskIPActivity.class);
+        startActivity(startAct);
+    }
+
 }
 
 

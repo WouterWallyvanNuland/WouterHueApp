@@ -16,16 +16,16 @@
         app:srcCompat="@drawable/hue_bridge_hd"
         tools:layout_editor_absoluteX="81dp"
         tools:layout_editor_absoluteY="98dp"
-        android:layout_below="@+id/textViewTimer"
+        android:layout_below="@+id/textViewSetIp"
         android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_alignLeft="@+id/textViewTimer"
+        android:layout_alignLeft="@+id/textViewSetIp"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textViewTimer"
+        android:layout_alignStart="@+id/textViewSetIp"
         android:layout_marginTop="17dp"
         android:text="Push the button on your Philips HUE Bridge to connect the HUE to this application."
         android:textAlignment="center"
@@ -34,7 +34,7 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <TextView
-        android:id="@+id/textViewTimer"
+        android:id="@+id/textViewSetIp"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_alignLeft="@+id/imageView"
@@ -54,12 +54,16 @@
         android:textColor="@android:color/background_light"
         tools:layout_editor_absoluteX="81dp"
         tools:layout_editor_absoluteY="98dp"
-        tools:text="setTimer" />
+        tools:text="setIp" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textViewSetTimer"
         android:layout_width="300dp"
         android:layout_height="40dp"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="12dp"
         android:background="?android:attr/colorForeground"
         android:padding="10dp"
         android:paddingBottom="10dp"
@@ -73,9 +77,6 @@
         android:textColor="@android:color/background_light"
         tools:layout_editor_absoluteX="81dp"
         tools:layout_editor_absoluteY="98dp"
-        android:layout_below="@+id/imageView"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView"
-        android:layout_marginTop="12dp" />
+        tools:text="SetTimer" />
 
 </RelativeLayout>
