@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private PHHueSDK phHueSDK;
     private WouterHueListener myListener;
     private PHBridge verbondenBridge;
+    int insertedIp = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         phHueSDK = PHHueSDK.getInstance();
         phHueSDK.setAppName("WouterHue");
         phHueSDK.setDeviceName(android.os.Build.MODEL);
+
+        toAskIPActivity();
 
     }
 
@@ -36,14 +39,16 @@ public class MainActivity extends AppCompatActivity {
 
         PHBridge selectedBridge = phHueSDK.getSelectedBridge();
         System.out.println("No bridges found! So we need to find one in FindingBridgeActivity");
-        if (selectedBridge == null) {
-            // als er geen bridge is opnieuw naar het zoek bridge scherm.
-            //toWouterHueListener();
-              toFindingBridgeActivity();
-        } else {
-            // hier heb je al een bridge
-            toLampActivity();
-        }
+//        if (selectedBridge == null) {
+//
+//            //
+//            // als er geen bridge is opnieuw naar het zoek bridge scherm.
+//            //toWouterHueListener();
+//              toFindingBridgeActivity();
+//        } else {
+//            // hier heb je al een bridge
+//            toLampActivity();
+//        }
 
     }
 
@@ -64,10 +69,21 @@ public class MainActivity extends AppCompatActivity {
         startActivity(j);
     }
 
+    private void toAskIPActivity() {
+        Intent j = new Intent(this, AskIPActivity.class);
+        startActivityForResult(j, insertedIp);
+    }
+
+
     private void toWouterHueListener() {
         Intent k = new Intent(this, WouterHueListener.class);
         startActivity(k);
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Constant.GEKOZEN_IP = data.getStringExtra("UserIP");
+        toFindingBridgeActivity();
+    }
 }

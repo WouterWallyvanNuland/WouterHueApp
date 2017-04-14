@@ -62,11 +62,14 @@ public class WouterHueListener implements PHSDKListener{
             Log.d(TAG, "onAccessPointsFound: " + ap.getUsername());
 
             // Connect met degene die we zoeken (juiste IP)
+
+            Constant.getHistoryIp();
+            System.out.println(Constant.getHistoryIp().toString());
+
             if (ap.getIpAddress().equals(Constant.EIGEN_LAMPEN_IP)) {
                 Log.d(TAG, "onAccessPointsFound: Connecting to " + ap.getIpAddress());
                 phHueSdk.connect(ap);
-
-            } else if (ap.getIpAddress().equals(Constant.FOURTRESS_LAMPEN_IP)) {
+            } else if (ap.getIpAddress().equals(Constant.FOURTRESS_LAMPEN_IP1)) {
                 Log.d(TAG, "onAccessPointsFound: Connecting to " + ap.getIpAddress());
                 phHueSdk.connect(ap);
             } else if (ap.getIpAddress().equals(Constant.RICK_LAMPEN_IP)) {

@@ -29,7 +29,8 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         setContentView(R.layout.activity_finding_bridge);
 
         textView1 = (TextView) findViewById(R.id.textView1);
-        textView3 = (TextView) findViewById(R.id.textView3);
+        textView3 = (TextView) findViewById(R.id.textViewTimer);
+        textView3.setText(Constant.GEKOZEN_IP);
 
     }
 
@@ -53,6 +54,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
 
         System.out.println("DE HUE IS VERBONDEN MET HET VOLGENDE IP ADRES: " + verbondenBridgeIP);
 
+     //   textView3.setText();
 //        if (verbondenBridgeIP.equals(Constant.EIGEN_LAMPEN_IP)) {
 //            textView3.setText(verbondenBridgeIP);
 //        } else if (verbondenBridgeIP.equals(Constant.FOURTRESS_LAMPEN_IP)) {
