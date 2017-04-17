@@ -16,4 +16,8 @@
         completions."
     </string>
     <string name="title_activity_finding_bridge">FindingBridge</string>
+    <string name="redString">Red</string>
+    <string name="blueString">Blue</string>
+    <string name="yellowString">Yellow</string>
+    <string name="greenString">Green</string>
 </resources>

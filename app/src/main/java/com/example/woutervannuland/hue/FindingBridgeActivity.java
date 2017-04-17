@@ -2,6 +2,7 @@ package com.example.woutervannuland.hue;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
@@ -16,13 +17,14 @@ import java.util.List;
 
 public class FindingBridgeActivity extends AppCompatActivity implements ActivityChecker {
     private static final String TAG = "FindingBridgeActivity";
-    private String ip = "";
     TextView textView3;
+    TextView textViewSetTimer;
     TextView textView1;
+    CountDownTimer afteller;
+
 
     private PHHueSDK phHueSDK;
     private WouterHueListener myListener;
-    private PHBridge verbondenBridge;
     private List<PHAccessPoint> connectedHueList;
 
     @Override
@@ -30,15 +32,30 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finding_bridge);
 
-        TextView textView1 = (TextView) findViewById(R.id.textView1);
-        TextView textView3 = (TextView) findViewById(R.id.textView3);
+        textView1 = (TextView) findViewById(R.id.textView1);
+        textView3 = (TextView) findViewById(R.id.textViewSetIp);
+        textView3.setText(Constant.GEKOZEN_IP);
+        textViewSetTimer = (TextView) findViewById(R.id.textViewSetTimer);
+
     }
-
-
 
     @Override
     protected void onResume() {
         super.onResume();
+
+            afteller = new CountDownTimer(30000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    textViewSetTimer.setText("Seconds remaining to connect: " + millisUntilFinished / 1000);
+                }
+
+                public void onFinish() {
+
+                    toAskIPActivity();
+                }
+            }.start();
+
+
 
         phHueSDK = PHHueSDK.getInstance();
         myListener = new WouterHueListener(phHueSDK, this);
@@ -49,20 +66,29 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         Log.d(TAG, "onResume: Search for Hue Bridge started");
     }
 
-    public void showHueOnConnectedBridge(PHBridge verbondenBridge) {
+    public void showHueOnConnectedBridge(final PHBridge verbondenBridge) {
         Log.d(TAG, "watIkWildeDoen:");
+
+        String verbondenBridgeIP = verbondenBridge.getResourceCache().getBridgeConfiguration().getIpAddress().toString();
+
+        System.out.println("DE HUE IS VERBONDEN MET HET VOLGENDE IP ADRES: " + verbondenBridgeIP);
+
+     //   textView3.setText();
+//        if (verbondenBridgeIP.equals(Constant.EIGEN_LAMPEN_IP)) {
+//            textView3.setText(verbondenBridgeIP);
+//        } else if (verbondenBridgeIP.equals(Constant.FOURTRESS_LAMPEN_IP)) {
+//            textView3.setText(verbondenBridgeIP);
+//        } else if (verbondenBridgeIP.equals(Constant.RICK_LAMPEN_IP)) {
+//            textView3.setText(verbondenBridgeIP);
+//
+//        }
 
         //Receive all lights from bridge
         List<PHLight> gevondenLampen = verbondenBridge.getResourceCache().getAllLights();
-
-        // lijst nog tonen aan user.
-
         for (PHLight lamp : gevondenLampen) {
             Log.d(TAG, "watIkWildeDoen: " + lamp.getName());
-            Log.d(TAG, "showHueOnConnectedBridge: " + lamp.getUniqueId());
-            Log.d(TAG, "showHueOnConnectedBridge: " + lamp.getIdentifier());
         }
-
+        afteller.cancel();
         toConnectedLampActivity();
     }
 
@@ -74,8 +100,15 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
     public void toConnectedLampActivity() {
         // doe ik dat hier of doe ik dat in de main? (Antwoord = HIER!)
         Intent startAct = new Intent(this, LampActivity.class);
+
         startActivity(startAct);
     }
+
+    public void toAskIPActivity() {
+        Intent startAct = new Intent(this, AskIPActivity.class);
+        startActivity(startAct);
+    }
+
 }
 
 
