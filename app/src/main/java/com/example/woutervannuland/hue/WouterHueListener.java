@@ -9,21 +9,15 @@ import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHHueParsingError;
 
 
-
-
+import java.util.Arrays;
 import java.util.List;
+
+import static java.util.Arrays.asList;
 
 public class WouterHueListener implements PHSDKListener{
     private static final String TAG = "WouterHueListener";
     private final PHHueSDK phHueSdk;
     private final ActivityChecker activityChecker;
-
- //   private String fourtressBridgeIp = "172.16.10.18";
-//    private String lampenRickIp =       "192.168.2.3";
-    private String lampenWallyIp =     "192.168.2.20";
-//    private String selectedIP = fourtressBridgeIp;
-//    private String selectedIP = lampenRickIp;
-    private String selectedIP = lampenWallyIp;
 
     public WouterHueListener(PHHueSDK philipsDing, ActivityChecker myActivity) {
         this.phHueSdk = philipsDing;
@@ -42,7 +36,6 @@ public class WouterHueListener implements PHSDKListener{
         Log.d(TAG, "onBridgeConnected: ");
 
         activityChecker.showHueOnConnectedBridge(phBridge);
-        activityChecker.changingLightColors(phBridge);
 
     }
 
@@ -61,19 +54,25 @@ public class WouterHueListener implements PHSDKListener{
     @Override
     public void onAccessPointsFound(List<PHAccessPoint> list) {
         Log.d(TAG, "onAccessPointsFound: ");
-        for(PHAccessPoint ap : list) {
-            // Print alle AP informatie (bridge basic info)
-            Log.d(TAG, "onAccessPointsFound: " + ap.getIpAddress());
-            Log.d(TAG, "onAccessPointsFound: " + ap.getMacAddress());
-            Log.d(TAG, "onAccessPointsFound: " + ap.getBridgeId());
-            Log.d(TAG, "onAccessPointsFound: " + ap.getUsername());
 
-            // Connect met degene die we zoeken (juiste IP)
-            if (ap.getIpAddress().equals(selectedIP)) {
-                Log.d(TAG, "onAccessPointsFound: Connecting to " + ap.getIpAddress());
-                phHueSdk.connect(ap);
-            }
-        }
+        // E ik heb  een lijst
+        activityChecker.ikHebAccessPointsGevonden(list);
+
+//        for(PHAccessPoint ap : list) {
+//            // Print alle AP informatie (bridge basic info)
+////            Log.d(TAG, "onAccessPointsFound: " + ap.getIpAddress());
+////            Log.d(TAG, "onAccessPointsFound: " + ap.getMacAddress());
+////            Log.d(TAG, "onAccessPointsFound: " + ap.getBridgeId());
+////            Log.d(TAG, "onAccessPointsFound: " + ap.getUsername());
+//
+//            // Connect met degene die we zoeken (juiste IP)
+//            boolean contains = Arrays.asList(Constant.HISTORY_IP).contains(ap.getIpAddress());
+//
+//            if (contains) {
+//                Log.d(TAG, "onAccessPointsFound: Connecting to " + ap.getIpAddress());
+//                phHueSdk.connect(ap);
+//            }
+//        }
     }
 
     @Override

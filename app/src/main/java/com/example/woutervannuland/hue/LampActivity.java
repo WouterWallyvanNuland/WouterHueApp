@@ -73,7 +73,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         connectedHueList = allLights;
 
 
-        String connectedIP = Constant.GEKOZEN_IP;
+        String connectedIP = verbondenBridge.getResourceCache().getBridgeConfiguration().getIpAddress();
         int tmp = connectedHueList.size();
         textView1.setText(("Ip-adres: " + connectedIP));
         textView2.setText("Verbonden met " + tmp + " lampen..");

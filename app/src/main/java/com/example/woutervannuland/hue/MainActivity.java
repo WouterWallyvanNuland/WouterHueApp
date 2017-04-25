@@ -26,8 +26,7 @@ public class MainActivity extends AppCompatActivity {
         phHueSDK.setAppName("WouterHue");
         phHueSDK.setDeviceName(android.os.Build.MODEL);
 
-        toAskIPActivity();
-
+        toFindingBridgeActivity();
     }
 
     @Override
@@ -39,16 +38,16 @@ public class MainActivity extends AppCompatActivity {
 
         PHBridge selectedBridge = phHueSDK.getSelectedBridge();
         System.out.println("No bridges found! So we need to find one in FindingBridgeActivity");
-//        if (selectedBridge == null) {
-//
-//            //
-//            // als er geen bridge is opnieuw naar het zoek bridge scherm.
-//            //toWouterHueListener();
-//              toFindingBridgeActivity();
-//        } else {
-//            // hier heb je al een bridge
-//            toLampActivity();
-//        }
+        if (selectedBridge == null) {
+
+            //
+            // als er geen bridge is opnieuw naar het zoek bridge scherm.
+            //toWouterHueListener();
+              toFindingBridgeActivity();
+        } else {
+            // hier heb je al een bridge
+            toLampActivity();
+        }
 
     }
 
@@ -69,11 +68,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(j);
     }
 
-    private void toAskIPActivity() {
-        Intent j = new Intent(this, AskIPActivity.class);
-        startActivityForResult(j, insertedIp);
-    }
-
 
     private void toWouterHueListener() {
         Intent k = new Intent(this, WouterHueListener.class);
@@ -83,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Constant.GEKOZEN_IP = data.getStringExtra("UserIP");
+        String userIP = data.getStringExtra("UserIP");
         toFindingBridgeActivity();
     }
 }

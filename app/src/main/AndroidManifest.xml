@@ -21,7 +21,6 @@
         </activity>
         <activity android:name=".FindingBridgeActivity"></activity>
         <activity android:name=".LampActivity"></activity>
-        <activity android:name=".AskIPActivity"></activity>
     </application>
 
 </manifest>
