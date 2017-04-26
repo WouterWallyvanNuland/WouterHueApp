@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.rwslinkman.presentable.PresentableAdapter;
+import nl.rwslinkman.presentable.interaction.PresentableItemClickListener;
 
 public class FindingBridgeActivity extends AppCompatActivity implements ActivityChecker {
     private static final String TAG = "FindingBridgeActivity";
@@ -40,8 +41,8 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         setContentView(R.layout.activity_finding_bridge);
 
         textView1 = (TextView) findViewById(R.id.textView1);
-        textView3 = (TextView) findViewById(R.id.textViewSetIp);
-        textView3.setText("Komt nog");
+        textView3 = (TextView) findViewById(R.id.textViewAskUserToSetIP);
+        textView3.setText("Zoeken naar bridges.. ");
         textViewSetTimer = (TextView) findViewById(R.id.textViewSetTimer);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -52,6 +53,8 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         List<PHAccessPoint> accessPoints = new ArrayList<>();
         accessPointAdapter = new PresentableAdapter<>(new AccessPointPresenter(), accessPoints);
         recyclerView.setAdapter(accessPointAdapter);
+
+
 //      https://github.com/rwslinkman/presentablelibrary [RTFM]
     }
 
@@ -92,10 +95,39 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
             public void run() {
 
                 // Met de lijst kun je nog meer doen!
-                // dezeVondIk.size(); --> Ik heb er X gevonden! in een TextView bijv.
 
                 accessPointAdapter.setData(dezeVondIk);
                 accessPointAdapter.notifyDataSetChanged();
+                accessPointAdapter.setItemClickListener(new PresentableItemClickListener<PHAccessPoint>() {
+                    @Override
+                    public void onItemClicked(PHAccessPoint item) {
+                        Log.d("Hoi", item.getIpAddress());
+
+                        afteller.start();
+
+
+
+                        // - teller starten en doorvendinden naar connectelamp
+
+                        //afteller.cancel();
+                        //toConnectedLampActivity();
+                    }
+                });
+
+
+                if(dezeVondIk.size() <= 1)
+                textView3.setText("Er is " + dezeVondIk.size() + " bridge gevonden:");
+                else {
+                    textView3.setText("Er zijn " + dezeVondIk.size() + " bridges gevonden:");
+                }
+
+
+
+                // als er een item is ingekomen dan moet deze een onclick methode krijgen om door te gaan naar
+                // de Lampactivity, via de main waarschijnlijk.
+
+                //  afteller.cancel();
+               // toConnectedLampActivity();
             }
         });
     }
@@ -106,16 +138,6 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         String verbondenBridgeIP = verbondenBridge.getResourceCache().getBridgeConfiguration().getIpAddress().toString();
 
         System.out.println("DE HUE IS VERBONDEN MET HET VOLGENDE IP ADRES: " + verbondenBridgeIP);
-
-     //   textView3.setText();
-//        if (verbondenBridgeIP.equals(Constant.EIGEN_LAMPEN_IP)) {
-//            textView3.setText(verbondenBridgeIP);
-//        } else if (verbondenBridgeIP.equals(Constant.FOURTRESS_LAMPEN_IP)) {
-//            textView3.setText(verbondenBridgeIP);
-//        } else if (verbondenBridgeIP.equals(Constant.RICK_LAMPEN_IP)) {
-//            textView3.setText(verbondenBridgeIP);
-//
-//        }
 
         //Receive all lights from bridge
         List<PHLight> gevondenLampen = verbondenBridge.getResourceCache().getAllLights();

@@ -6,7 +6,7 @@ import java.util.List;
 
 public final class Constant {
 
-    private static final String EIGEN_LAMPEN_IP = "192.168.2.20";
+    private static final String EIGEN_LAMPEN_IP = "192.168.2.2";
     private static final String RICK_LAMPEN_IP = "192.168.2.3";
     private static final String FOURTRESS_LAMPEN_IP1 = "172.16.10.76";
     private static final String FOURTRESS_LAMPEN_IP2 = "172.16.10.92";
