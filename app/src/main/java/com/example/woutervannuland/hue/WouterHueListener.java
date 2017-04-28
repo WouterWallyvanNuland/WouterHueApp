@@ -71,7 +71,6 @@ public class WouterHueListener implements PHSDKListener{
             if (contains) {
                 Log.d(TAG, "onAccessPointsFound: Connecting to " + ap.getIpAddress());
                 phHueSdk.connect(ap);
-
             }
         }
     }

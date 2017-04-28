@@ -50,7 +50,7 @@
         tools:layout_editor_absoluteY="98dp"
         android:layout_below="@id/list_of_accesspoints"
         android:layout_centerHorizontal="true"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 
 
@@ -75,7 +75,7 @@
         android:textColor="@android:color/background_light"
         tools:layout_editor_absoluteX="81dp"
         tools:layout_editor_absoluteY="98dp"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 
 </RelativeLayout>

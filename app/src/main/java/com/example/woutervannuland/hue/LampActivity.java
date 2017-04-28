@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.model.PHBridge;
-import com.philips.lighting.model.PHBridgeResourcesCache;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
@@ -18,15 +17,14 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     private PHBridge verbondenBridge;
     private List<PHLight> connectedHueList;
 
-    Button button1;
-    Button button2;
-    Button button3;
-    Button button4;
-    Button button5;
-    Button button6;
+    Button ColorLoopButton;
+    Button StopLoopButton;
+    Button redButton;
+    Button greenButton;
+    Button blueButton;
+    Button yellowButton;
     TextView textView1;
     TextView textView2;
-
 
     // Tip van de dag: Activities mogen geen constructor hebben
 
@@ -36,26 +34,26 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_lamp);
 
         // first create all buttons and catch them by ID.
-        button1 = (Button) findViewById(R.id.button1);
-        button1.setOnClickListener(this);
+        ColorLoopButton = (Button) findViewById(R.id.ColorLoopButton);
+        ColorLoopButton.setOnClickListener(this);
 
-        button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener(this);
+        StopLoopButton = (Button) findViewById(R.id.StopLoopButton);
+        StopLoopButton.setOnClickListener(this);
 
-        button3 = (Button) findViewById(R.id.button3);
-        button3.setOnClickListener(this);
+        redButton = (Button) findViewById(R.id.redButton);
+        redButton.setOnClickListener(this);
 
-        button4 = (Button) findViewById(R.id.button4);
-        button4.setOnClickListener(this);
+        greenButton = (Button) findViewById(R.id.greenButton);
+        greenButton.setOnClickListener(this);
 
-        button5 = (Button) findViewById(R.id.button5);
-        button5.setOnClickListener(this);
+        blueButton = (Button) findViewById(R.id.blueButton);
+        blueButton.setOnClickListener(this);
 
-        button6 = (Button) findViewById(R.id.button6);
-        button6.setOnClickListener (this);
+        yellowButton = (Button) findViewById(R.id.yellowButton);
+        yellowButton.setOnClickListener (this);
 
-        textView1 = (TextView) findViewById(R.id.textView1);
-        textView2 = (TextView) findViewById(R.id.textView2);
+        textView1 = (TextView) findViewById(R.id.connectedIpTextView);
+        textView2 = (TextView) findViewById(R.id.connectedAmountOfLampsTextView);
 
 
 
@@ -82,40 +80,40 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button5:
+            case R.id.blueButton:
                 // both lights to BLUE
                 if (verbondenBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
                         verbondenBridge.updateLightState(thisConnectedHueList, changeHue0ToColorBlue());
                     }
-                    System.out.println("Changed both lights to color Blue via button!");
+                    System.out.println("Changed all lights to color Blue via button!");
 
                     break;
                 }
-            case R.id.button3:
+            case R.id.redButton:
                 // both lights to RED
                 if (verbondenBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
                         verbondenBridge.updateLightState(thisConnectedHueList, changeHue0ToColorRed());
                     }
-                    System.out.println("Changed both lights to color Red via button!");
+                    System.out.println("Changed all lights to color Red via button!");
 
                     break;
                 }
 
-            case R.id.button4:
+            case R.id.greenButton:
                 // both lights to GREEN
                 if (verbondenBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
                         verbondenBridge.updateLightState(thisConnectedHueList, changeHue0ToColorGreen());
                     }
-                    System.out.println("Changed both lights to color Green via button!");
+                    System.out.println("Changed all lights to color Green via button!");
 
                     break;
                 }
 
 
-            case R.id.button2:
+            case R.id.StopLoopButton:
                 // both lights need to stop with their colorLoop. Change back to last known color.
                 if (verbondenBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
@@ -126,18 +124,18 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
 
-            case R.id.button1:
+            case R.id.ColorLoopButton:
                 // both lights to ColorLoop mode!
                 if (verbondenBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
                         verbondenBridge.updateLightState(thisConnectedHueList, loopEffectHue0());
                     }
-                    System.out.println("HoopdiLoop! Demonstrating all the colors in a loop on both lights ");
+                    System.out.println("HoopdiLoop! Demonstrating all the colors in a loop on all lights ");
 
                     break;
                 }
 
-            case R.id.button6:
+            case R.id.yellowButton:
                 // both ligths to YELLOW!
                 if (verbondenBridge != null) {
 //                    for (int i=0; i < connectedHueList.size(); i++ ) {

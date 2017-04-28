@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.woutervannuland.hue.bridgelist.AccessPointPresenter;
@@ -27,7 +29,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
     TextView textView3;
     TextView textViewSetTimer;
     TextView textView1;
-    CountDownTimer afteller;
+    public CountDownTimer afteller;
 
 
     private PHHueSDK phHueSDK;
@@ -40,7 +42,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finding_bridge);
 
-        textView1 = (TextView) findViewById(R.id.textView1);
+        textView1 = (TextView) findViewById(R.id.connectedIpTextView);
         textView3 = (TextView) findViewById(R.id.textViewAskUserToSetIP);
         textView3.setText("Zoeken naar bridges.. ");
         textViewSetTimer = (TextView) findViewById(R.id.textViewSetTimer);
@@ -102,12 +104,16 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
                     @Override
                     public void onItemClicked(PHAccessPoint item) {
                         Log.d("Hoi", item.getIpAddress());
+                        //eerste in de lijst in een variable zetten om deze mee te geven aan de listener
+                        PHAccessPoint eersteInDeLijst = dezeVondIk.get(0);
+                        myListener.onAuthenticationRequired(eersteInDeLijst);
 
+                        textViewSetTimer.setVisibility(View.VISIBLE);
+                        ImageView bridge = (ImageView) findViewById(R.id.bridgeImageView) ;
+                        bridge.setVisibility(View.VISIBLE);
                         afteller.start();
 
-
-
-                        // - teller starten en doorvendinden naar connectelamp
+                        // - teller starten en doorvendinden naar connectedlamp als er verbinding is.
 
                         //afteller.cancel();
                         //toConnectedLampActivity();
@@ -136,8 +142,8 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         Log.d(TAG, "watIkWildeDoen:");
 
         String verbondenBridgeIP = verbondenBridge.getResourceCache().getBridgeConfiguration().getIpAddress().toString();
-
-        System.out.println("DE HUE IS VERBONDEN MET HET VOLGENDE IP ADRES: " + verbondenBridgeIP);
+        Log.d(TAG, "DE HUE IS VERBONDEN MET HET VOLGENDE IP ADRES: " + verbondenBridgeIP);
+        Log.d(TAG, "Stop de teller nu. En ga naar ConnectedLampActivity");
 
         //Receive all lights from bridge
         List<PHLight> gevondenLampen = verbondenBridge.getResourceCache().getAllLights();
