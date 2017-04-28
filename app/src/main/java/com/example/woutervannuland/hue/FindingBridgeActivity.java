@@ -1,6 +1,7 @@
 package com.example.woutervannuland.hue;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +31,6 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
     TextView textViewSetTimer;
     TextView textView1;
     public CountDownTimer afteller;
-
 
     private PHHueSDK phHueSDK;
     private WouterHueListener myListener;
@@ -107,6 +107,11 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
                         //eerste in de lijst in een variable zetten om deze mee te geven aan de listener
                         PHAccessPoint eersteInDeLijst = dezeVondIk.get(0);
                         myListener.onAuthenticationRequired(eersteInDeLijst);
+
+                        // James Brown is coming to FunkyTown!
+                        MediaPlayer mp;
+                        mp = MediaPlayer.create(FindingBridgeActivity.this, R.raw.jb_bridgesample);
+                        mp.start();
 
                         textViewSetTimer.setVisibility(View.VISIBLE);
                         ImageView bridge = (ImageView) findViewById(R.id.bridgeImageView) ;
