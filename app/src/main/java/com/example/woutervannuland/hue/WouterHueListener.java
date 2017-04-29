@@ -57,7 +57,7 @@ public class WouterHueListener implements PHSDKListener{
 
         // E ik heb  een lijst
         activityChecker.ikHebAccessPointsGevonden(list);
-     
+
 
         for(PHAccessPoint ap : list) {
             // Print alle AP informatie (bridge basic info)

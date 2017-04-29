@@ -31,6 +31,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
     TextView textViewSetTimer;
     TextView textView1;
     public CountDownTimer afteller;
+    public MediaPlayer mp;
 
     private PHHueSDK phHueSDK;
     private WouterHueListener myListener;
@@ -77,13 +78,9 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
                 }
             }.start();
 
-
-
         phHueSDK = PHHueSDK.getInstance();
         myListener = new WouterHueListener(phHueSDK, this);
         phHueSDK.getNotificationManager().registerSDKListener(myListener);
-
-
 
         PHBridgeSearchManager searchManager = (PHBridgeSearchManager) phHueSDK.getSDKService(PHHueSDK.SEARCH_BRIDGE);
         searchManager.search(true, true);
@@ -109,7 +106,6 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
                         myListener.onAuthenticationRequired(eersteInDeLijst);
 
                         // James Brown is coming to FunkyTown!
-                        MediaPlayer mp;
                         mp = MediaPlayer.create(FindingBridgeActivity.this, R.raw.jb_bridgesample);
                         mp.start();
 
@@ -117,11 +113,6 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
                         ImageView bridge = (ImageView) findViewById(R.id.bridgeImageView) ;
                         bridge.setVisibility(View.VISIBLE);
                         afteller.start();
-
-                        // - teller starten en doorvendinden naar connectedlamp als er verbinding is.
-
-                        //afteller.cancel();
-                        //toConnectedLampActivity();
                     }
                 });
 
@@ -131,14 +122,6 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
                 else {
                     textView3.setText("Er zijn " + dezeVondIk.size() + " bridges gevonden:");
                 }
-
-
-
-                // als er een item is ingekomen dan moet deze een onclick methode krijgen om door te gaan naar
-                // de Lampactivity, via de main waarschijnlijk.
-
-                //  afteller.cancel();
-               // toConnectedLampActivity();
             }
         });
     }
@@ -150,11 +133,13 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         Log.d(TAG, "DE HUE IS VERBONDEN MET HET VOLGENDE IP ADRES: " + verbondenBridgeIP);
         Log.d(TAG, "Stop de teller nu. En ga naar ConnectedLampActivity");
 
+
         //Receive all lights from bridge
         List<PHLight> gevondenLampen = verbondenBridge.getResourceCache().getAllLights();
         for (PHLight lamp : gevondenLampen) {
             Log.d(TAG, "watIkWildeDoen: " + lamp.getName());
         }
+        mp.stop();
         afteller.cancel();
         toConnectedLampActivity();
     }

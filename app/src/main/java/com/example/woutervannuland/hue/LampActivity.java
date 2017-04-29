@@ -17,14 +17,14 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     private PHBridge verbondenBridge;
     private List<PHLight> connectedHueList;
 
-    Button ColorLoopButton;
-    Button StopLoopButton;
+    Button colorLoopButton;
+    Button stopLoopButton;
     Button redButton;
     Button greenButton;
     Button blueButton;
     Button yellowButton;
-    TextView textView1;
-    TextView textView2;
+    TextView connectedIpTextView;
+    TextView connectedAmountOfLampsTextView;
 
     // Tip van de dag: Activities mogen geen constructor hebben
 
@@ -34,11 +34,11 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_lamp);
 
         // first create all buttons and catch them by ID.
-        ColorLoopButton = (Button) findViewById(R.id.ColorLoopButton);
-        ColorLoopButton.setOnClickListener(this);
+        colorLoopButton = (Button) findViewById(R.id.ColorLoopButton);
+        colorLoopButton.setOnClickListener(this);
 
-        StopLoopButton = (Button) findViewById(R.id.StopLoopButton);
-        StopLoopButton.setOnClickListener(this);
+        stopLoopButton = (Button) findViewById(R.id.StopLoopButton);
+        stopLoopButton.setOnClickListener(this);
 
         redButton = (Button) findViewById(R.id.redButton);
         redButton.setOnClickListener(this);
@@ -52,12 +52,8 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         yellowButton = (Button) findViewById(R.id.yellowButton);
         yellowButton.setOnClickListener (this);
 
-        textView1 = (TextView) findViewById(R.id.connectedIpTextView);
-        textView2 = (TextView) findViewById(R.id.connectedAmountOfLampsTextView);
-
-
-
-
+        connectedIpTextView = (TextView) findViewById(R.id.connectedIpTextView);
+        connectedAmountOfLampsTextView = (TextView) findViewById(R.id.connectedAmountOfLampsTextView);
     }
 
     @Override
@@ -73,8 +69,8 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
         String connectedIP = verbondenBridge.getResourceCache().getBridgeConfiguration().getIpAddress();
         int tmp = connectedHueList.size();
-        textView1.setText(("Ip-adres: " + connectedIP));
-        textView2.setText("Verbonden met " + tmp + " lampen..");
+        connectedIpTextView.setText(("Ip-adres: " + connectedIP));
+        connectedAmountOfLampsTextView.setText("Verbonden met " + tmp + " lampen..");
 
     }
 
