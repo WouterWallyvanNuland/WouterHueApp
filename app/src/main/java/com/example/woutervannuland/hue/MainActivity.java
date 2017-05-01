@@ -1,11 +1,18 @@
 package com.example.woutervannuland.hue;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.model.PHBridge;
+
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
+import static android.R.attr.data;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,11 +36,24 @@ public class MainActivity extends AppCompatActivity {
         toFindingBridgeActivity();
     }
 
+    private void writeToFile(String data,Context context) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("config.txt", Context.MODE_PRIVATE));
+            Log.d("OutputWriter:", "Ik heb iets geschreven!!");
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
 
         // TODO uitzoeken of er een bridge was waar ooit mee geconnect is.
+        writeToFile("Gekke test", this);
 
 
         PHBridge selectedBridge = phHueSDK.getSelectedBridge();

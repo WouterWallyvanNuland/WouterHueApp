@@ -95,18 +95,34 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
 
                 // Met de lijst kun je nog meer doen!
 
+
                 accessPointAdapter.setData(dezeVondIk);
                 accessPointAdapter.notifyDataSetChanged();
                 accessPointAdapter.setItemClickListener(new PresentableItemClickListener<PHAccessPoint>() {
                     @Override
                     public void onItemClicked(PHAccessPoint item) {
-                        Log.d("Hoi", item.getIpAddress());
-                        //eerste in de lijst in een variable zetten om deze mee te geven aan de listener
-                        PHAccessPoint eersteInDeLijst = dezeVondIk.get(0);
-                        myListener.onAuthenticationRequired(eersteInDeLijst);
+
+                        int count = 0;
+
+                        for(PHAccessPoint element : dezeVondIk) {
+                            count ++;
+
+                        try {
+                                PHAccessPoint eerste = dezeVondIk.get(0);
+                                myListener.onAuthenticationRequired(eerste);
+                                Log.d("TryCatchMultipleBridges", "Connected in " + count + " time / times ");
+
+
+                            break;
+
+                        } catch(Exception multipleBridgesException) {
+
+                            Log.d("multipleBridgeException", "Bridge not found");
+
+                        }}
 
                         // James Brown is coming to FunkyTown!
-                        mp = MediaPlayer.create(FindingBridgeActivity.this, R.raw.jb_bridgesample);
+                        mp = MediaPlayer.create(FindingBridgeActivity.this, R.raw.jbsampleshort);
                         mp.start();
 
                         textViewSetTimer.setVisibility(View.VISIBLE);
