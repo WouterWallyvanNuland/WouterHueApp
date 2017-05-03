@@ -138,7 +138,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         String verbondenBridgeIP = bridgeConfiguration.getIpAddress();
         Log.d(TAG, "DE HUE IS VERBONDEN MET HET VOLGENDE IP ADRES: " + verbondenBridgeIP);
         Log.d(TAG, "Stop de teller nu. En ga naar ConnectedLampActivity");
-        
+
         // sharedpreferences om preferences te lezen
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 

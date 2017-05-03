@@ -73,12 +73,10 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         List<PHLight> allLights = verbondenBridge.getResourceCache().getAllLights();
         connectedHueList = allLights;
 
-
         String connectedIP = verbondenBridge.getResourceCache().getBridgeConfiguration().getIpAddress();
         int tmp = connectedHueList.size();
         connectedIpTextView.setText(("Ip-adres: " + connectedIP));
         connectedAmountOfLampsTextView.setText("Verbonden met " + tmp + " lampen..");
-
     }
 
     public void onClick(View v) {
@@ -156,25 +154,11 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-    public void changingLightColors(PHBridge receivedBridge) {
-
-        // DE BRIDGE DIE GEVONDEN IS, LOKAAL MAKEN IN DE MAIN CLASS
-        this.verbondenBridge = receivedBridge;
-
-    }
-
     public PHLightState loopEffectHue0() {
         final PHLightState lightState0 = new PHLightState();
         lightState0.setEffectMode(PHLight.PHLightEffectMode.EFFECT_COLORLOOP);
 
         return lightState0;
-    }
-
-    public PHLightState loopEffectHue1() {
-        final PHLightState lightState1 = new PHLightState();
-        lightState1.setEffectMode(PHLight.PHLightEffectMode.EFFECT_COLORLOOP);
-
-        return lightState1;
     }
 
     public PHLightState loopStop0() {
@@ -184,19 +168,11 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         return lightState0;
     }
 
-    public PHLightState loopStop1() {
-        PHLightState lightState1 = new PHLightState();
-        lightState1.setEffectMode(PHLight.PHLightEffectMode.EFFECT_NONE);
-
-        return lightState1;
-    }
-
-
     public PHLightState changeHue0ToColorYellow() {
         final PHLightState yellowState0 = new PHLightState();
         yellowState0.setHue(12750, true);
-//        yellowState.setX(0.5425f);
-//        yellowState.setY(0.4196f);
+    //        yellowState.setX(0.5425f);
+    //        yellowState.setY(0.4196f);
 
         return yellowState0;
     }
@@ -211,11 +187,10 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
     public PHLightState changeHue0ToColorBlue() {
         final PHLightState blueState0 = new PHLightState();
-  //      blueState0.setHue(46920, true);
           blueState0.setHue(46920, true);
 
-//          blueState0.setX(0.1691f);
-//          blueState0.setY(0.0441f);
+    //          blueState0.setX(0.1691f);
+    //          blueState0.setY(0.0441f);
 
         return blueState0;
     }
@@ -224,44 +199,11 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         final PHLightState redState0 = new PHLightState();
         redState0.setHue(0, true);
 
-//        redState.setX(0.6750f);
-//        redState.setY(0.3223f);
+    //        redState.setX(0.6750f);
+    //        redState.setY(0.3223f);
 
         return redState0;
     }
 
-    public PHLightState changeHue1ToColorYellow() {
-        final PHLightState yellowState1 = new PHLightState();
-        yellowState1.setHue(12750, true);
-//        yellowState.setX(0.5425f);
-//        yellowState.setY(0.4196f);
 
-        return yellowState1;
-    }
-
-    public PHLightState changeHue1ToColorBlue() {
-        final PHLightState blueState1 = new PHLightState();
-        blueState1.setHue(46920, true);
-        //  blueState.setX(0.1691f);
-        //  blueState.setY(0.0441f);
-
-        return blueState1;
-    }
-
-    public PHLightState changeHue1ToColorRed() {
-        final PHLightState redState1 = new PHLightState();
-        redState1.setHue(0, true);
-        // redState.setX(0.6750f);
-        // redState.setY(0.3223f);
-
-        return redState1;
-    }
-
-    public PHLightState changeHue1ToColorGreen() {
-        final PHLightState greenState1 = new PHLightState();
-        greenState1.setX(0.4100f);
-        greenState1.setY(0.51721f);
-
-        return greenState1;
-    }
 }
