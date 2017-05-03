@@ -57,24 +57,6 @@ public class WouterHueListener implements PHSDKListener{
 
         // E ik heb  een lijst
         activityChecker.ikHebAccessPointsGevonden(list);
-
-
-        for(PHAccessPoint ap : list) {
-            // Print alle AP informatie (bridge basic info)
-            Log.d(TAG, "onAccessPointsFound: " + ap.getIpAddress());
-            Log.d(TAG, "onAccessPointsFound: " + ap.getMacAddress());
-            Log.d(TAG, "onAccessPointsFound: " + ap.getBridgeId());
-            Log.d(TAG, "onAccessPointsFound: " + ap.getUsername());
-
-//            // Connect met degene die we zoeken (juiste IP)
-            boolean contains = Arrays.asList(Constant.HISTORY_IP).contains(ap.getIpAddress());
-//
-            if (contains) {
-                Log.d(TAG, "onAccessPointsFound: Connecting to " + ap.getIpAddress());
-                phHueSdk.connect(ap);
-
-            }
-        }
     }
 
     @Override

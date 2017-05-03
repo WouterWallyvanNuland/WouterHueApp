@@ -78,7 +78,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
                     Log.e(TAG, "onFinish: Timer afgelopen maar geen bridge!");
 //                    toAskIPActivity();
                 }
-            }.start();
+            };
 
         phHueSDK = PHHueSDK.getInstance();
         myListener = new WouterHueListener(phHueSDK, this);
