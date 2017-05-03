@@ -20,4 +20,5 @@
     <string name="blueString">Blue</string>
     <string name="yellowString">Yellow</string>
     <string name="greenString">Green</string>
+    <string name="title_activity_scene">SceneActivity</string>
 </resources>

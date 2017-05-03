@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.woutervannuland.hue.SceneActivity">
+
+    <TextView
+        android:id="@+id/textViewAskUserToSetScene"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:background="?android:attr/colorForeground"
+        android:padding="10dp"
+        android:paddingBottom="10dp"
+        android:paddingEnd="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:text="Selecteer uw scene"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        tools:layout_editor_absoluteX="81dp"
+        tools:layout_editor_absoluteY="98dp"
+        />
+
+    <Button
+        android:id="@+id/azianGreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Azian Green"
+        android:layout_below="@id/textViewAskUserToSetScene"
+        android:layout_alignLeft="@+id/springBlossomButton"
+        android:layout_alignStart="@+id/springBlossomButton"
+        android:layout_marginTop="50dp"/>
+
+    <Button
+        android:id="@+id/springBlossomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Spring BLossom"
+        android:layout_below="@+id/azianGreenButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/sunsetSceneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sunset"
+        android:layout_below="@+id/springBlossomButton"
+        android:layout_alignLeft="@+id/springBlossomButton"
+        android:layout_alignStart="@+id/springBlossomButton"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/savannahSceneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Savannah"
+        android:layout_below="@+id/sunsetSceneButton"
+        android:layout_alignLeft="@+id/sunsetSceneButton"
+        android:layout_alignStart="@+id/sunsetSceneButton"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:id="@+id/connectedAmountOfLampsTextView"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/connectedIpTextView"
+        android:layout_toStartOf="@+id/connectedIpTextView"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="amount of lamps connected"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/connectedIpTextView"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="setIpBridge"
+        android:textColor="@android:color/black"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>
