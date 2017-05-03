@@ -1,5 +1,6 @@
 package com.example.woutervannuland.hue;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.philips.lighting.model.PHLightState;
 
 import java.util.List;
 
+import static com.example.woutervannuland.hue.FindingBridgeActivity.PREFS_NAME;
+
 public class LampActivity extends AppCompatActivity implements View.OnClickListener {
     private PHBridge verbondenBridge;
     private List<PHLight> connectedHueList;
@@ -23,6 +26,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     Button greenButton;
     Button blueButton;
     Button yellowButton;
+    Button clearButton;
     TextView connectedIpTextView;
     TextView connectedAmountOfLampsTextView;
 
@@ -51,6 +55,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
         yellowButton = (Button) findViewById(R.id.yellowButton);
         yellowButton.setOnClickListener (this);
+
+        clearButton = (Button) findViewById(R.id.clearButton);
+        clearButton.setOnClickListener (this);
 
         connectedIpTextView = (TextView) findViewById(R.id.connectedIpTextView);
         connectedAmountOfLampsTextView = (TextView) findViewById(R.id.connectedAmountOfLampsTextView);
@@ -83,9 +90,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                         verbondenBridge.updateLightState(thisConnectedHueList, changeHue0ToColorBlue());
                     }
                     System.out.println("Changed all lights to color Blue via button!");
-
-                    break;
                 }
+                break;
+
             case R.id.redButton:
                 // both lights to RED
                 if (verbondenBridge != null) {
@@ -94,8 +101,8 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     System.out.println("Changed all lights to color Red via button!");
 
-                    break;
                 }
+                break;
 
             case R.id.greenButton:
                 // both lights to GREEN
@@ -104,9 +111,8 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                         verbondenBridge.updateLightState(thisConnectedHueList, changeHue0ToColorGreen());
                     }
                     System.out.println("Changed all lights to color Green via button!");
-
-                    break;
                 }
+                break;
 
 
             case R.id.StopLoopButton:
@@ -116,9 +122,8 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                         verbondenBridge.updateLightState(thisConnectedHueList, loopStop0());
                     }
                     System.out.println("Quit loop and go back to last known color before loop started ");
-
-                    break;
                 }
+                break;
 
             case R.id.ColorLoopButton:
                 // both lights to ColorLoop mode!
@@ -127,26 +132,28 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                         verbondenBridge.updateLightState(thisConnectedHueList, loopEffectHue0());
                     }
                     System.out.println("HoopdiLoop! Demonstrating all the colors in a loop on all lights ");
-
-                    break;
                 }
+                break;
 
             case R.id.yellowButton:
                 // both ligths to YELLOW!
                 if (verbondenBridge != null) {
-//                    for (int i=0; i < connectedHueList.size(); i++ ) {
-//                        verbondenBridge.updateLightState(connectedHueList.get(i), changeHue0ToColorYellow());
-//                    }
-
                     for (PHLight thisConnectedHueList : connectedHueList) {
                         verbondenBridge.updateLightState(thisConnectedHueList, changeHue0ToColorYellow());
                     }
-
-
                 }
+                break;
 
+            case R.id.clearButton:
+                SharedPreferences preferences = getSharedPreferences(PREFS_NAME, 0);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.apply();
+                break;
 
-        }
+            default:
+                break;
+            }
         }
 
     public void changingLightColors(PHBridge receivedBridge) {

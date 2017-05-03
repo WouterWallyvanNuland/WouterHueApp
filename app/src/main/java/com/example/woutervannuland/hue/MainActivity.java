@@ -2,20 +2,27 @@ package com.example.woutervannuland.hue;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.model.PHBridge;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.List;
 
 import static android.R.attr.data;
+import static com.example.woutervannuland.hue.FindingBridgeActivity.KEY_IP;
+import static com.example.woutervannuland.hue.FindingBridgeActivity.KEY_MAC;
+import static com.example.woutervannuland.hue.FindingBridgeActivity.KEY_USERNAME;
+import static com.example.woutervannuland.hue.FindingBridgeActivity.PREFS_NAME;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ActivityChecker {
     private static final String TAG = "MainActivity";
 
     // create all variables that i need in my Main.
@@ -40,29 +47,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // TODO uitzoeken of er een bridge was waar ooit mee geconnect is.
+        // uitzoeken of er een bridge was waar ooit mee geconnect is.
+        // Eerst preferences laden
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        String ip = settings.getString(KEY_IP, ""); // "" indien niks geset
+        String macaddress = settings.getString(KEY_MAC, "");
+        String username = settings.getString(KEY_USERNAME, "");
 
-
-        PHBridge selectedBridge = phHueSDK.getSelectedBridge();
-        System.out.println("No bridges found! So we need to find one in FindingBridgeActivity");
-        if (selectedBridge == null) {
-
-            //
-            // als er geen bridge is opnieuw naar het zoek bridge scherm.
-            //toWouterHueListener();
-              toFindingBridgeActivity();
-        } else {
-            // hier heb je al een bridge
-            toLampActivity();
+        if (ip.isEmpty()){
+            // Nog geen IP
+            toFindingBridgeActivity();
         }
+        else {
+            // Al wel een IP
+            myListener = new WouterHueListener(phHueSDK, this);
+            phHueSDK.getNotificationManager().registerSDKListener(myListener);
 
-    }
-
-    public void checkConnectedBridge(PHBridge receivedBridge) {
-
-        // DE BRIDGE DIE GEVONDEN IS, LOKAAL MAKEN IN DE MAIN CLASS
-        this.verbondenBridge = receivedBridge;
-        // TODO daarna dus bepalen naar welk scherm de user wordt doorgeleid: Meteen naar lampen?
+            PHAccessPoint APpref = new PHAccessPoint(ip, username, macaddress);
+            phHueSDK.connect(APpref);
+        }
     }
 
     private void toFindingBridgeActivity() {
@@ -75,16 +78,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(j);
     }
 
-
-    private void toWouterHueListener() {
-        Intent k = new Intent(this, WouterHueListener.class);
-        startActivity(k);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String userIP = data.getStringExtra("UserIP");
         toFindingBridgeActivity();
+    }
+
+    @Override
+    public void ikHebAccessPointsGevonden(List<PHAccessPoint> dezeVondIk) {
+        // Krijgen we hier niet
+    }
+
+    @Override
+    public void showHueOnConnectedBridge(PHBridge verbondenBridge) {
+        toLampActivity();
     }
 }

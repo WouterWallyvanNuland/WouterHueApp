@@ -1,6 +1,7 @@
 package com.example.woutervannuland.hue;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -17,6 +18,7 @@ import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHBridgeSearchManager;
 import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.model.PHBridge;
+import com.philips.lighting.model.PHBridgeConfiguration;
 import com.philips.lighting.model.PHLight;
 
 import java.util.ArrayList;
@@ -32,12 +34,15 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
     TextView textView1;
     RecyclerView iplijst;
 
+    public static final String PREFS_NAME = "MyPrefsFile";
+    public static final String KEY_IP = "userIp";
+    public static final String KEY_MAC = "userMacAddress";
+    public static final String KEY_USERNAME = "userUsername";
     public CountDownTimer afteller;
     public MediaPlayer mp;
 
     private PHHueSDK phHueSDK;
     private WouterHueListener myListener;
-    private List<PHAccessPoint> connectedHueList;
     private PresentableAdapter<PHAccessPoint> accessPointAdapter;
 
     @Override
@@ -58,7 +63,6 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         List<PHAccessPoint> accessPoints = new ArrayList<>();
         accessPointAdapter = new PresentableAdapter<>(new AccessPointPresenter(), accessPoints);
         iplijst.setAdapter(accessPointAdapter);
-
 
 //      https://github.com/rwslinkman/presentablelibrary [RTFM]
     }
@@ -96,8 +100,6 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
             public void run() {
 
                 // Met de lijst kun je nog meer doen!
-
-
                 accessPointAdapter.setData(dezeVondIk);
                 accessPointAdapter.notifyDataSetChanged();
                 accessPointAdapter.setItemClickListener(new PresentableItemClickListener<PHAccessPoint>() {
@@ -128,13 +130,24 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         });
     }
 
+
     public void showHueOnConnectedBridge(final PHBridge verbondenBridge) {
         Log.d(TAG, "watIkWildeDoen:");
 
-        String verbondenBridgeIP = verbondenBridge.getResourceCache().getBridgeConfiguration().getIpAddress().toString();
+        PHBridgeConfiguration bridgeConfiguration = verbondenBridge.getResourceCache().getBridgeConfiguration();
+        String verbondenBridgeIP = bridgeConfiguration.getIpAddress();
         Log.d(TAG, "DE HUE IS VERBONDEN MET HET VOLGENDE IP ADRES: " + verbondenBridgeIP);
         Log.d(TAG, "Stop de teller nu. En ga naar ConnectedLampActivity");
+        
+        // sharedpreferences om preferences te lezen
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 
+        // editor om preferences te schrijven
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(KEY_IP, bridgeConfiguration.getIpAddress());
+        editor.putString(KEY_MAC, bridgeConfiguration.getMacAddress());
+        editor.putString(KEY_USERNAME, bridgeConfiguration.getUsername());
+        editor.apply();
 
         //Receive all lights from bridge
         List<PHLight> gevondenLampen = verbondenBridge.getResourceCache().getAllLights();
