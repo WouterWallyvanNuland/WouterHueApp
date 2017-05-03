@@ -30,6 +30,8 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
     TextView textView3;
     TextView textViewSetTimer;
     TextView textView1;
+    RecyclerView iplijst;
+
     public CountDownTimer afteller;
     public MediaPlayer mp;
 
@@ -49,13 +51,13 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         textViewSetTimer = (TextView) findViewById(R.id.textViewSetTimer);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_of_accesspoints);
-        recyclerView.setLayoutManager(llm);
+        iplijst = (RecyclerView) findViewById(R.id.list_of_accesspoints);
+        iplijst.setLayoutManager(llm);
 
         // Create adapter
         List<PHAccessPoint> accessPoints = new ArrayList<>();
         accessPointAdapter = new PresentableAdapter<>(new AccessPointPresenter(), accessPoints);
-        recyclerView.setAdapter(accessPointAdapter);
+        iplijst.setAdapter(accessPointAdapter);
 
 
 //      https://github.com/rwslinkman/presentablelibrary [RTFM]
@@ -102,29 +104,13 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
                     @Override
                     public void onItemClicked(PHAccessPoint item) {
 
-                        int count = 0;
-
-                        for(PHAccessPoint element : dezeVondIk) {
-                            count ++;
-
-                        try {
-                                PHAccessPoint eerste = dezeVondIk.get(0);
-                                myListener.onAuthenticationRequired(eerste);
-                                Log.d("TryCatchMultipleBridges", "Connected in " + count + " time / times ");
-
-
-                            break;
-
-                        } catch(Exception multipleBridgesException) {
-
-                            Log.d("multipleBridgeException", "Bridge not found");
-
-                        }}
+                        myListener.onAuthenticationRequired(item);
 
                         // James Brown is coming to FunkyTown!
                         mp = MediaPlayer.create(FindingBridgeActivity.this, R.raw.jbsampleshort);
                         mp.start();
 
+                        iplijst.setVisibility(View.GONE);
                         textViewSetTimer.setVisibility(View.VISIBLE);
                         ImageView bridge = (ImageView) findViewById(R.id.bridgeImageView) ;
                         bridge.setVisibility(View.VISIBLE);
