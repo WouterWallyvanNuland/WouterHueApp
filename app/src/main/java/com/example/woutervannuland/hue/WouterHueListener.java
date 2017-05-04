@@ -9,6 +9,7 @@ import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHHueParsingError;
 
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,11 +33,10 @@ public class WouterHueListener implements PHSDKListener{
     @Override
     public void onBridgeConnected(PHBridge phBridge, String username) {
         phHueSdk.setSelectedBridge(phBridge);
-//        phHueSdk.enableHeartbeat(phBridge, PHHueSDK.HB_INTERVAL / 2);
-        Log.d(TAG, "onBridgeConnected: ");
-
+        username = phBridge.getResourceCache().getBridgeConfiguration().getUsername();
+        Log.d(TAG, "onBridgeConnected: " + username);
+        //        phHueSdk.enableHeartbeat(phBridge, PHHueSDK.HB_INTERVAL / 2);
         activityChecker.showHueOnConnectedBridge(phBridge);
-
     }
 
     @Override
@@ -45,15 +45,20 @@ public class WouterHueListener implements PHSDKListener{
 
         // TODO show pushlink image and timer.
 
-        Log.d(TAG, "onAuthenticationRequired: WOUTER TAKE IT TO THE BRIDGE!");
-        Log.d(TAG, "onAuthenticationRequired: " + phAccessPoint.getIpAddress());
+        Log.d(TAG, "onAuthenticationRequired: WOUTER TAKE IT TO THE BRIDGE!" + phAccessPoint.getIpAddress());
+        Log.d(TAG, "onAuthenticationRequired: WOUTER TAKE IT TO THE BRIDGE!" + phAccessPoint.getBridgeId());
+
     }
 
 
 
     @Override
     public void onAccessPointsFound(List<PHAccessPoint> list) {
-        Log.d(TAG, "onAccessPointsFound: ");
+        for (PHAccessPoint element : list
+             ) {
+            Log.d(TAG, "Found some accessPoints: IpAdres = " + element.getIpAddress() + "    MacAdres = " + element.getMacAddress());
+        }
+        Log.d(TAG, "onAccessPointsFound: When IP is in SharedPref, app will go immediately to ConnectedLampActivity ");
 
         // E ik heb  een lijst
         activityChecker.ikHebAccessPointsGevonden(list);

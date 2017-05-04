@@ -12,6 +12,7 @@ import com.philips.lighting.hue.sdk.PHAccessPoint;
 import nl.rwslinkman.presentable.Presenter;
 
 public class AccessPointPresenter implements Presenter<PHAccessPoint, AccessPointPresenter.ViewHolder> {
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
         View v = LayoutInflater.from(parent.getContext())
@@ -26,8 +27,9 @@ public class AccessPointPresenter implements Presenter<PHAccessPoint, AccessPoin
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, PHAccessPoint item)
     {
-        String ipAddress = item.getIpAddress();
-        viewHolder.ipAddressView.setText(ipAddress);
+       // String ipAddress = item.getIpAddress();
+        String macAddress = item.getMacAddress();
+        viewHolder.ipAddressView.setText(macAddress);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

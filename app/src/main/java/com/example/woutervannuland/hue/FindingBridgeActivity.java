@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHBridgeConfiguration;
 import com.philips.lighting.model.PHLight;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
     TextView textView3;
     TextView textViewSetTimer;
     TextView textView1;
+    TextView textHint;
     RecyclerView iplijst;
 
     public static final String PREFS_NAME = "MyPrefsFile";
@@ -51,9 +54,10 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         setContentView(R.layout.activity_finding_bridge);
 
         textView1 = (TextView) findViewById(R.id.connectedIpTextView);
-        textView3 = (TextView) findViewById(R.id.textViewAskUserToSetIP);
+        textView3 = (TextView) findViewById(R.id.textViewAskUserToSelectBridge);
         textView3.setText("Zoeken naar bridges.. ");
         textViewSetTimer = (TextView) findViewById(R.id.textViewSetTimer);
+        textHint = (TextView) findViewById(R.id.hintText);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         iplijst = (RecyclerView) findViewById(R.id.list_of_accesspoints);
@@ -79,8 +83,13 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
 
                 public void onFinish() {
 
-                    Log.e(TAG, "onFinish: Timer afgelopen maar geen bridge!");
-//                    toAskIPActivity();
+                    mp = MediaPlayer.create(FindingBridgeActivity.this, R.raw.shortfailsoundhorn);
+                    mp.start();
+
+                    Log.e(TAG, "onFinish: Timer afgelopen maar geen bridge! Ask user again to select a MacAddress");
+
+                    toMainActivity();
+
                 }
             };
 
@@ -88,9 +97,10 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         myListener = new WouterHueListener(phHueSDK, this);
         phHueSDK.getNotificationManager().registerSDKListener(myListener);
 
+        Log.d(TAG, "onResume: Search for Hue Bridge starting.. ");
         PHBridgeSearchManager searchManager = (PHBridgeSearchManager) phHueSDK.getSDKService(PHHueSDK.SEARCH_BRIDGE);
         searchManager.search(true, true);
-        Log.d(TAG, "onResume: Search for Hue Bridge started");
+
     }
 
     @Override
@@ -100,6 +110,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
             public void run() {
 
                 // Met de lijst kun je nog meer doen!
+
                 accessPointAdapter.setData(dezeVondIk);
                 accessPointAdapter.notifyDataSetChanged();
                 accessPointAdapter.setItemClickListener(new PresentableItemClickListener<PHAccessPoint>() {
@@ -136,8 +147,13 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
 
         PHBridgeConfiguration bridgeConfiguration = verbondenBridge.getResourceCache().getBridgeConfiguration();
         String verbondenBridgeIP = bridgeConfiguration.getIpAddress();
-        Log.d(TAG, "DE HUE IS VERBONDEN MET HET VOLGENDE IP ADRES: " + verbondenBridgeIP);
-        Log.d(TAG, "Stop de teller nu. En ga naar ConnectedLampActivity");
+        String naamBridge = bridgeConfiguration.getUsername();
+        String macAdres = bridgeConfiguration.getMacAddress();
+
+        Log.d(TAG, "DE HUE IS VERBONDEN MET HET VOLGENDE IP ADRES  :  " + verbondenBridgeIP);
+        Log.d(TAG, "DE HUE IS VERBONDEN MET HET VOLGENDE IP ADRES  :  " + macAdres);
+        Log.d(TAG, "DE HUE IS VERBONDEN MET DE VOLGENDE BRIDGE  :  " + naamBridge);
+        Log.d(TAG, "Stop de afteller nu. En ga naar ConnectedLampActivity");
 
         // sharedpreferences om preferences te lezen
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -152,16 +168,22 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         //Receive all lights from bridge
         List<PHLight> gevondenLampen = verbondenBridge.getResourceCache().getAllLights();
         for (PHLight lamp : gevondenLampen) {
-            Log.d(TAG, "watIkWildeDoen: " + lamp.getName());
+            Log.d(TAG, "watIkWildeDoen: Er is een connectie met de volgende lamp: " + lamp.getName());
         }
+
         mp.stop();
         afteller.cancel();
         toConnectedLampActivity();
     }
 
     public void toConnectedLampActivity() {
-        // doe ik dat hier of doe ik dat in de main? (Antwoord = HIER!)
         Intent startAct = new Intent(this, LampActivity.class);
+
+        startActivity(startAct);
+    }
+
+    public void toMainActivity() {
+        Intent startAct = new Intent(this, MainActivity.class);
 
         startActivity(startAct);
     }

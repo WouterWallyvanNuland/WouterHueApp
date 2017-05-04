@@ -7,10 +7,23 @@
     android:layout_height="match_parent"
     tools:context="com.example.woutervannuland.hue.MainActivity">
 
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Shoot down the Bridge"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/black"
+        android:textColor="@android:color/white"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
     <LinearLayout
+        android:id="@+id/linearLayoutLoopbuttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_below="@id/clearButton"
         android:layout_marginStart="43dp"
         android:layout_marginLeft="43dp"
         android:layout_marginEnd="43dp"
@@ -21,10 +34,8 @@
             android:id="@+id/ColorLoopButton"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="27dp"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@android:color/background_dark"
             android:text="Colorloop"
@@ -34,10 +45,8 @@
             android:id="@+id/StopLoopButton"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="27dp"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@android:color/black"
             android:text="Stop loop"
@@ -63,11 +72,12 @@
         android:layout_toLeftOf="@+id/connectedIpTextView"
         android:layout_toStartOf="@+id/connectedIpTextView"
         android:text="amount of lamps connected"
-        android:textAlignment="viewStart"
         android:textColor="@android:color/black" />
 
     <ImageView
         android:id="@+id/coloredHueImage"
+        android:layout_below="@id/linearLayoutLoopbuttons"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -126,13 +136,7 @@
             android:text="@string/blueString" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/clearButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Shoot down the Bridge"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>
 
