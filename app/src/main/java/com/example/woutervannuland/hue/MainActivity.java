@@ -93,4 +93,9 @@ public class MainActivity extends AppCompatActivity implements ActivityChecker {
     public void showHueOnConnectedBridge(PHBridge verbondenBridge) {
         toLampActivity();
     }
+
+    public PHHueSDK getPhHueSDK() {
+        return phHueSDK;
+    }
+
 }
