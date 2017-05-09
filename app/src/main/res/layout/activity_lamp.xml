@@ -8,7 +8,7 @@
     tools:context="com.example.woutervannuland.hue.MainActivity">
 
     <Button
-        android:id="@+id/clearButton"
+        android:id="@+id/clearBridgeButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Shoot down the Bridge"
@@ -23,7 +23,7 @@
         android:id="@+id/linearLayoutLoopbuttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/clearButton"
+        android:layout_below="@id/clearBridgeButton"
         android:layout_marginStart="43dp"
         android:layout_marginLeft="43dp"
         android:layout_marginEnd="43dp"

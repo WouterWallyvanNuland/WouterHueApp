@@ -60,8 +60,7 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
         connectedIpTextView.setText(("Ip-adres: " + connectedIP));
 
         // en hier alle lampen
-        List<PHLight> allLights = verbondenBridge.getResourceCache().getAllLights();
-        connectedHueList = allLights;
+        connectedHueList = verbondenBridge.getResourceCache().getAllLights();
         int tmp = connectedHueList.size();
         connectedAmountOfLampsTextView.setText("Verbonden met " + tmp + " lampen..");
     }

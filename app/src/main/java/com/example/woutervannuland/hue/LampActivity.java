@@ -56,7 +56,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         yellowButton = (Button) findViewById(R.id.yellowButton);
         yellowButton.setOnClickListener (this);
 
-        clearButton = (Button) findViewById(R.id.clearButton);
+        clearButton = (Button) findViewById(R.id.clearBridgeButton);
         clearButton.setOnClickListener (this);
 
         connectedIpTextView = (TextView) findViewById(R.id.connectedIpTextView);
@@ -142,7 +142,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
 
-            case R.id.clearButton:
+            case R.id.clearBridgeButton:
                 SharedPreferences preferences = getSharedPreferences(PREFS_NAME, 0);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.clear();
