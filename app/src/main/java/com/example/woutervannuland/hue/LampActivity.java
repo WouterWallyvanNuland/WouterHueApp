@@ -35,7 +35,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lamp);
+        setContentView(R.layout.activity_lamps);
 
         // first create all buttons and catch them by ID.
         colorLoopButton = (Button) findViewById(R.id.ColorLoopButton);

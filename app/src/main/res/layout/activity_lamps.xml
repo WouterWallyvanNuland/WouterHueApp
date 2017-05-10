@@ -1,125 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/overalLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/clearBridgeButton"
-        android:layout_width="148dp"
+    <RelativeLayout
+        android:id="@+id/topButtonsLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="14dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="17dp"
-        android:background="@android:color/black"
-        android:text="Forget Bridge"
-        android:textColor="@android:color/white" />
+        android:gravity="center_horizontal">
 
-    <Button
-        android:id="@+id/goToSceneButton"
-        android:layout_width="148dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:background="@android:color/black"
-        android:text="Go to scene"
-        android:textColor="@android:color/white"
-        android:layout_alignBaseline="@+id/clearBridgeButton"
-        android:layout_alignBottom="@+id/clearBridgeButton"
-        android:layout_toStartOf="@+id/greenButton" />
+        <Button
+            android:id="@+id/clearBridgeButton"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/black"
+            android:text="Forget Bridge"
+            android:textColor="@android:color/white" />
 
-    <Button
-        android:id="@+id/ColorLoopButton"
-        android:layout_width="148dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/background_dark"
-        android:text="Colorloop"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@android:color/white"
-        android:layout_below="@+id/goToSceneButton"
-        android:layout_alignStart="@+id/goToSceneButton" />
+        <Button
+            android:id="@+id/goToSceneButton"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/black"
+            android:text="Go to scene"
+            android:textColor="@android:color/white"
+            android:layout_alignBaseline="@id/clearBridgeButton"
+            android:layout_alignBottom="@id/clearBridgeButton"
+            android:layout_toStartOf="@id/clearBridgeButton" />
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/StopLoopButton"
-        android:layout_width="148dp"
+    <RelativeLayout
+        android:id="@+id/secondButtonsLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/black"
-        android:text="Stop loop"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="20dp"
-        android:textColor="@android:color/white"
-        android:layout_below="@+id/clearBridgeButton"
-        android:layout_toEndOf="@+id/ColorLoopButton" />
+        android:layout_below="@id/topButtonsLayout"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/ColorLoopButton"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/background_dark"
+            android:text="Colorloop"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/StopLoopButton"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:text="Stop loop"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:textColor="@android:color/white"
+            android:layout_toStartOf="@id/ColorLoopButton"/>
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/coloredHueImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/ColorLoopButton"
-        android:layout_marginTop="5dp"
         android:scaleType="centerInside"
-        app:srcCompat="@drawable/philips_hue_color_logo" />
+        app:srcCompat="@drawable/philips_hue_color_logo"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/secondButtonsLayout"/>
 
-    <Button
-        android:id="@+id/redButton"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@android:color/holo_red_dark"
-        android:text="@string/redString"
-        android:layout_marginBottom="16dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/yellowButton"
-        android:layout_marginEnd="13dp" />
+    <RelativeLayout
+        android:id="@+id/belowButtonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/coloredHueImage"
+        android:gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        >
 
-    <Button
-        android:id="@+id/yellowButton"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:background="@android:color/holo_orange_light"
-        android:text="@string/yellowString"
-        android:layout_alignBaseline="@+id/redButton"
-        android:layout_alignBottom="@+id/redButton"
-        android:layout_alignEnd="@+id/ColorLoopButton" />
+        <Button
+            android:id="@+id/redButton"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@android:color/holo_red_dark"
+            android:text="@string/redString"/>
 
-    <Button
-        android:id="@+id/greenButton"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:background="@android:color/holo_green_light"
-        android:text="@string/greenString"
-        android:layout_alignBaseline="@+id/blueButton"
-        android:layout_alignBottom="@+id/blueButton"
-        android:layout_toStartOf="@+id/blueButton" />
+        <Button
+            android:id="@+id/yellowButton"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@android:color/holo_orange_light"
+            android:text="@string/yellowString"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/redButton" />
 
-    <Button
-        android:id="@+id/blueButton"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:background="@android:color/holo_blue_dark"
-        android:text="@string/blueString"
-        android:layout_alignBaseline="@+id/yellowButton"
-        android:layout_alignBottom="@+id/yellowButton"
-        android:layout_alignEnd="@+id/clearBridgeButton" />
+        <Button
+            android:id="@+id/greenButton"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@android:color/holo_green_light"
+            android:text="@string/greenString"
+            android:layout_toEndOf="@id/yellowButton" />
 
+        <Button
+            android:id="@+id/blueButton"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@android:color/holo_blue_dark"
+            android:text="@string/blueString"
+            android:layout_toEndOf="@id/greenButton"/>
 
-
-
-
-
-
+    </RelativeLayout>
 
 
 </RelativeLayout>
