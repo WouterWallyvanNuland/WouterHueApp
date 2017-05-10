@@ -1,5 +1,6 @@
 package com.example.woutervannuland.hue;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,8 +28,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     Button blueButton;
     Button yellowButton;
     Button clearButton;
-    TextView connectedIpTextView;
-    TextView connectedAmountOfLampsTextView;
+    Button goToSceneButton;
+    TextView ipConnectedBridgeTextView;
+    TextView connectedAmountOfLamps;
 
     // Tip van de dag: Activities mogen geen constructor hebben
 
@@ -59,8 +61,11 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         clearButton = (Button) findViewById(R.id.clearBridgeButton);
         clearButton.setOnClickListener (this);
 
-        connectedIpTextView = (TextView) findViewById(R.id.connectedIpTextView);
-        connectedAmountOfLampsTextView = (TextView) findViewById(R.id.connectedAmountOfLampsTextView);
+        goToSceneButton = (Button) findViewById(R.id.goToSceneButton);
+        goToSceneButton.setOnClickListener(this);
+
+        ipConnectedBridgeTextView = (TextView) findViewById(R.id.ipConnectedBridgeTextView);
+        connectedAmountOfLamps = (TextView) findViewById(R.id.connectedAmountOfLamps);
     }
 
     @Override
@@ -75,8 +80,8 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
         String connectedIP = verbondenBridge.getResourceCache().getBridgeConfiguration().getIpAddress();
         int tmp = connectedHueList.size();
-        connectedIpTextView.setText(("Ip-adres: " + connectedIP));
-        connectedAmountOfLampsTextView.setText("Verbonden met " + tmp + " lampen..");
+        ipConnectedBridgeTextView.setText(("Ip-adres: " + connectedIP));
+        connectedAmountOfLamps.setText("Verbonden met " + tmp + " lampen..");
     }
 
     public void onClick(View v) {
@@ -149,6 +154,10 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                 editor.apply();
                 break;
 
+            case R.id.goToSceneButton:
+                toSceneActivity();
+                break;
+
             default:
                 break;
             }
@@ -203,6 +212,11 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     //        redState.setY(0.3223f);
 
         return redState0;
+    }
+
+    private void toSceneActivity() {
+        Intent i = new Intent(this, SceneActivity.class);
+        startActivity(i);
     }
 
 

@@ -9,10 +9,32 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/connectedBridgeInfoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/connectedAmountOfLamps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/ipConnectedBridgeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="TextView"
+             />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/topButtonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:layout_below="@id/connectedBridgeInfoLayout">
 
         <Button
             android:id="@+id/clearBridgeButton"

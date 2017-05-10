@@ -31,10 +31,20 @@ public class MainActivity extends AppCompatActivity implements ActivityChecker {
     private PHBridge verbondenBridge;
     int insertedIp = 7;
 
+    //SharedPref data
+    private String ip;
+    private String username;
+    private String macaddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        ip = settings.getString(KEY_IP, ""); // "" indien niks geset
+        macaddress = settings.getString(KEY_MAC, "");
+        username = settings.getString(KEY_USERNAME, "");
 
         phHueSDK = PHHueSDK.getInstance();
         phHueSDK.setAppName("WouterHue");
@@ -49,12 +59,9 @@ public class MainActivity extends AppCompatActivity implements ActivityChecker {
 
         // uitzoeken of er een bridge was waar ooit mee geconnect is.
         // Eerst preferences laden
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        String ip = settings.getString(KEY_IP, ""); // "" indien niks geset
-        String macaddress = settings.getString(KEY_MAC, "");
-        String username = settings.getString(KEY_USERNAME, "");
 
-        if (ip.isEmpty()){
+
+        if (ip.isEmpty() || username.isEmpty()){
             // Nog geen IP
             toFindingBridgeActivity();
         }
@@ -64,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements ActivityChecker {
             phHueSDK.getNotificationManager().registerSDKListener(myListener);
 
             PHAccessPoint APpref = new PHAccessPoint(ip, username, macaddress);
+            APpref.setIpAddress(ip);
+            APpref.setUsername(username);
             phHueSDK.connect(APpref);
         }
     }

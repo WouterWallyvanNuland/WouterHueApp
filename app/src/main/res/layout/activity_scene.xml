@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     tools:context="com.example.woutervannuland.hue.SceneActivity">
 
     <TextView
@@ -29,43 +30,43 @@
         />
 
     <Button
-        android:id="@+id/azianGreenButton"
+        android:id="@+id/arcticGreenButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Azian Green"
-        android:layout_below="@id/textViewAskUserToSetScene"
-        android:layout_alignLeft="@+id/springBlossomButton"
-        android:layout_alignStart="@+id/springBlossomButton"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="49dp"
+        android:background="@android:color/holo_blue_light"
+        android:text="Arctic Green"
+        android:layout_below="@+id/textViewAskUserToSetScene"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/springBlossomButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Spring BLossom"
-        android:layout_below="@+id/azianGreenButton"
+        android:layout_below="@+id/arcticGreenButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"
+        android:background="@color/colorAccent"
+        android:text="Spring BLossom" />
 
     <Button
         android:id="@+id/sunsetSceneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
         android:text="Sunset"
         android:layout_below="@+id/springBlossomButton"
-        android:layout_alignLeft="@+id/springBlossomButton"
-        android:layout_alignStart="@+id/springBlossomButton"
-        android:layout_marginTop="50dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/savannahSceneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="39dp"
+        android:background="@android:color/holo_red_dark"
         android:text="Savannah"
-        android:layout_below="@+id/sunsetSceneButton"
-        android:layout_alignLeft="@+id/sunsetSceneButton"
-        android:layout_alignStart="@+id/sunsetSceneButton"
-        android:layout_marginTop="50dp" />
+        android:layout_above="@+id/connectedAmountOfLampsTextView"
+        android:layout_alignEnd="@+id/arcticGreenButton" />
 
     <TextView
         android:id="@+id/connectedAmountOfLampsTextView"

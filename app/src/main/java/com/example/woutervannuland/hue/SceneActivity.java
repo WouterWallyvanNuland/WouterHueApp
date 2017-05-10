@@ -1,10 +1,7 @@
 package com.example.woutervannuland.hue;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,7 +20,7 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
     TextView connectedIpTextView;
     TextView connectedAmountOfLampsTextView;
 
-    Button azianGreenButton;
+    Button arcticGreenButton;
     Button springBlossomButton;
     Button sunsetSceneButton;
     Button savannahSceneButton;
@@ -34,8 +31,8 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scene);
 
-         azianGreenButton = (Button) findViewById(R.id.azianGreenButton);
-         azianGreenButton.setOnClickListener(this);
+         arcticGreenButton = (Button) findViewById(R.id.arcticGreenButton);
+         arcticGreenButton.setOnClickListener(this);
 
          springBlossomButton = (Button) findViewById(R.id.springBlossomButton);
          springBlossomButton.setOnClickListener(this);
