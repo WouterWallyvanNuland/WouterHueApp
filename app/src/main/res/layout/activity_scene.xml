@@ -31,21 +31,35 @@
 
     <Button
         android:id="@+id/arcticGreenButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="28dp"
         android:background="@android:color/holo_blue_light"
         android:text="Arctic Green"
         android:layout_below="@+id/textViewAskUserToSetScene"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/textViewAskUserToSetScene" />
+
+    <SeekBar
+        android:id="@+id/seekBarArcticGreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textViewAskUserToSetScene"
+        android:layout_alignStart="@+id/textViewAskUserToSetScene"
+        android:layout_below="@+id/arcticGreenButton"
+        android:layout_marginTop="15dp"
+        android:max="255"
+        android:progress="128"
+        />
 
     <Button
         android:id="@+id/springBlossomButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/arcticGreenButton"
+        android:layout_below="@+id/seekBarArcticGreen"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_alignStart="@id/arcticGreenButton"
+        android:layout_alignEnd="@id/arcticGreenButton"
         android:background="@color/colorAccent"
         android:text="Spring BLossom" />
 
@@ -88,6 +102,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+
 
 
 </RelativeLayout>
