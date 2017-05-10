@@ -15,7 +15,6 @@ import com.philips.lighting.model.PHLightState;
 import com.philips.lighting.model.PHScene;
 
 import java.util.List;
-import java.util.Map;
 
 public class SceneActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
@@ -32,7 +31,9 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
     Button savannahSceneButton;
 
     SeekBar seekBarArcticGreen;
-
+    SeekBar seekBarSpringBlossom;
+    SeekBar seekBarSunsetScene;
+    SeekBar seekBarSavannahScene;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,15 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
 
         seekBarArcticGreen = (SeekBar) findViewById(R.id.seekBarArcticGreen);
         seekBarArcticGreen.setOnSeekBarChangeListener(this);
+
+        seekBarSpringBlossom = (SeekBar) findViewById(R.id.seekBarSpringBlossom);
+        seekBarSpringBlossom.setOnSeekBarChangeListener(this);
+
+        seekBarSunsetScene = (SeekBar) findViewById(R.id.seekBarSunsetScene);
+        seekBarSunsetScene.setOnSeekBarChangeListener(this);
+
+        seekBarSavannahScene = (SeekBar) findViewById(R.id.seekBarSavannahScene);
+        seekBarSavannahScene.setOnSeekBarChangeListener(this);
 
         connectedIpTextView = (TextView) findViewById(R.id.connectedIpTextView);
         connectedAmountOfLampsTextView = (TextView) findViewById(R.id.connectedAmountOfLampsTextView);
@@ -79,9 +89,33 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()) {
             case R.id.arcticGreenButton:
                 Log.d(TAG, "onClick: " + verbondenBridge.getResourceCache().getScenes().values());
-            case R.id.springBlossomButton:
-//                Log.d(TAG, "onClick: " + verbondenBridge.getResourceCache().getScenes().values());
+                // set scene arctic green
+                //verbondenBridge.activateScene();
+                break;
 
+            case R.id.springBlossomButton:
+                Log.d(TAG, "onClick: springblossombutton clicked");
+                Log.d(TAG, "onClick: springblossom clicked : get-colormode. : " + brightnessAdjuster().getColorMode());
+                Log.d(TAG, "onClick: springblossom clicked : get-ct. : " + brightnessAdjuster().getCt());
+                Log.d(TAG, "onClick: springblossom clicked : get-effectmode. : " + brightnessAdjuster().getEffectMode());
+                Log.d(TAG, "onClick: springblossom clicked : get-hue. : " + brightnessAdjuster().getHue());
+
+
+
+                // set scene spring blossom
+                break;
+
+            case R.id.sunsetSceneButton:
+                Log.d(TAG, "onClick: sunsetscenebutton clicked");
+
+                // set scene sunset
+                break;
+
+            case R.id.savannahSceneButton:
+                Log.d(TAG, "onClick: savannahScenebutton clicked");
+
+                // set scene savannah
+                break;
 
             default:
                 break;
