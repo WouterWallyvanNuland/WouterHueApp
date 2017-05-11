@@ -132,6 +132,12 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         Log.d(TAG, "onProgressChanged: progress in seekBarArcticGreen is now " + progress);
         // progress meegeven aan een functie die de lightstate.setbrightness aanstuurt
+        PHLightState briState = brightnessAdjuster();
+        for (PHLight thisConnectedHueList : connectedHueList)
+        {
+            verbondenBridge.updateLightState(thisConnectedHueList, briState);
+            Log.d(TAG, "brightnessAdjuster:  Adjusting brightnessing for you while sliding on Seekbar");
+        }
 
     }
 
@@ -143,6 +149,12 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+        // lampen bleven flikkeren na grote verplaatsing op de de seekbar
+        // door de onprogressChanged methode, dus vandaar onderstaande code.
+        onProgressChanged(seekBar, seekBar.getProgress(), true);
+
+        // lampen zetten naar de waarde die de user instelt op de Seekbar.
+        // eerst PHLightstate aanmaken, en die gelijkstellen aan de returnwaarde van de SeekbarArcticGreen brightnessAdjuster
         PHLightState briState = brightnessAdjuster();
         Log.d(TAG, "SceneActivity: onStopTrackingTouch: " + seekBar.getProgress());
         for (PHLight thisConnectedHueList : connectedHueList)
