@@ -132,7 +132,13 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         Log.d(TAG, "onProgressChanged: progress in seekBarArcticGreen is now " + progress);
         // progress meegeven aan een functie die de lightstate.setbrightness aanstuurt
-
+        PHLightState briState = brightnessAdjuster();
+        Log.d(TAG, "SceneActivity: onProgressChanged: " + seekBar.getProgress());
+        for (PHLight thisConnectedHueList : connectedHueList)
+        {
+            verbondenBridge.updateLightState(thisConnectedHueList, briState);
+            Log.d(TAG, "brightnessAdjuster:  now adjust brightnessing for you");
+        }
     }
 
     @Override
@@ -142,7 +148,6 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
         PHLightState briState = brightnessAdjuster();
         Log.d(TAG, "SceneActivity: onStopTrackingTouch: " + seekBar.getProgress());
         for (PHLight thisConnectedHueList : connectedHueList)
@@ -150,6 +155,7 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
             verbondenBridge.updateLightState(thisConnectedHueList, briState);
             Log.d(TAG, "brightnessAdjuster:  now adjust brightnessing for you");
         }
+
     }
 
     private PHLightState brightnessAdjuster() {
