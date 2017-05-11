@@ -14,6 +14,7 @@ import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 import com.philips.lighting.model.PHScene;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SceneActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
@@ -91,6 +92,10 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
                 Log.d(TAG, "onClick: " + verbondenBridge.getResourceCache().getScenes().values());
                 // set scene arctic green
                 //verbondenBridge.activateScene();
+
+//                PHScene sceneToUpdate = verbondenBridge.getResourceCache().getScenes().get();
+//                sceneToUpdate.setLightIdentifiers(new ArrayList());
+
                 break;
 
             case R.id.springBlossomButton:
