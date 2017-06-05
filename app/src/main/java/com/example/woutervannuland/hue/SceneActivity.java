@@ -16,6 +16,7 @@ import com.philips.lighting.model.PHScene;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SceneActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
@@ -82,6 +83,18 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
         connectedHueList = verbondenBridge.getResourceCache().getAllLights();
         int tmp = connectedHueList.size();
         connectedAmountOfLampsTextView.setText("Verbonden met " + tmp + " lampen..");
+
+        Map<String, PHScene> scenesMap = verbondenBridge.getResourceCache().getScenes();
+        for (Map.Entry<String, PHScene> entry : scenesMap.entrySet())
+        {
+            Log.d(TAG, "ScenesMap: " + (entry.getKey() + "/" + entry.getValue()));
+            String sceneIdentifier = entry.getKey();
+            PHScene sceneValue = entry.getValue();
+
+        }
+
+
+
     }
 
     //// TODO: als er geklikt wordt dan moet de scene openen en dan moet men de brightness kunnen schalen.
@@ -90,6 +103,10 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()) {
             case R.id.arcticGreenButton:
                 Log.d(TAG, "onClick: " + verbondenBridge.getResourceCache().getScenes().values());
+
+//                verbondenBridge.getScene();
+//                verbondenBridge.activateScene("ArcticGreen", "Green", );
+
                 // set scene arctic green
                 //verbondenBridge.activateScene();
 
