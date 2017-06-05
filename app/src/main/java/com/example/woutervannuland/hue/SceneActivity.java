@@ -188,4 +188,8 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
         lightStateBright.setBrightness(seekBarArcticGreen.getProgress());
         return lightStateBright;
     }
+
+
+
+
 }

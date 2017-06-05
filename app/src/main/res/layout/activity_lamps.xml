@@ -109,9 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/coloredHueImage"
-        android:gravity="center_horizontal"
-        android:layout_centerVertical="true"
-        >
+        android:gravity="center_horizontal">
 
         <Button
             android:id="@+id/redButton"
@@ -153,7 +151,19 @@
             android:text="@string/blueString"
             android:layout_toEndOf="@id/greenButton"/>
 
+        <SeekBar
+            android:id="@+id/saturationSeekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/blueButton"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/blueButton"
+            android:layout_marginTop="15dp"
+            android:max="255"
+            android:progress="128" />
+
     </RelativeLayout>
+
 
 
 </RelativeLayout>
