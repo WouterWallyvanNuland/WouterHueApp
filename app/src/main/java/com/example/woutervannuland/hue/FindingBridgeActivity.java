@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +21,6 @@ import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHBridgeConfiguration;
 import com.philips.lighting.model.PHLight;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +29,9 @@ import nl.rwslinkman.presentable.interaction.PresentableItemClickListener;
 
 public class FindingBridgeActivity extends AppCompatActivity implements ActivityChecker {
     private static final String TAG = "FindingBridgeActivity";
-    TextView textView3;
+    TextView textViewAskUserToSelectBridge;
     TextView textViewSetTimer;
-    TextView textView1;
+    TextView connectedIpTextView;
     TextView textHint;
     RecyclerView iplijst;
 
@@ -53,9 +51,9 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finding_bridge);
 
-        textView1 = (TextView) findViewById(R.id.connectedIpTextView);
-        textView3 = (TextView) findViewById(R.id.textViewAskUserToSelectBridge);
-        textView3.setText("Zoeken naar bridges.. ");
+        connectedIpTextView = (TextView) findViewById(R.id.connectedIpTextView);
+        textViewAskUserToSelectBridge = (TextView) findViewById(R.id.textViewAskUserToSelectBridge);
+        textViewAskUserToSelectBridge.setText("Zoeken naar bridges.. ");
         textViewSetTimer = (TextView) findViewById(R.id.textViewSetTimer);
         textHint = (TextView) findViewById(R.id.hintText);
 
@@ -133,9 +131,9 @@ public class FindingBridgeActivity extends AppCompatActivity implements Activity
 
 
                 if(dezeVondIk.size() <= 1)
-                textView3.setText("Er is " + dezeVondIk.size() + " bridge gevonden:");
+                textViewAskUserToSelectBridge.setText("Er is " + dezeVondIk.size() + " bridge gevonden:");
                 else {
-                    textView3.setText("Er zijn " + dezeVondIk.size() + " bridges gevonden:");
+                    textViewAskUserToSelectBridge.setText("Er zijn " + dezeVondIk.size() + " bridges gevonden:");
                 }
             }
         });

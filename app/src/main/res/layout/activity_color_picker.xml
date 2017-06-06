@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.woutervannuland.hue.ColorPickerActivity">
+
+    <TextView
+        android:id="@+id/setColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:gravity="start"
+        android:text="Set Color"
+        tools:layout_editor_absoluteX="266dp"
+        tools:layout_editor_absoluteY="6dp" />
+
+    <ImageView
+        android:id="@+id/colorPickerHd"
+        android:layout_width="576dp"
+        android:layout_height="47dp"
+        app:srcCompat="@drawable/color_picker_hd"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="33dp" />
+
+    <SeekBar
+        android:id="@+id/setHueValueSeekBar"
+        android:layout_width="576dp"
+        android:layout_height="22dp"
+        android:max="65000"
+        android:progress="32500"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="89dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Saturation"
+        tools:layout_editor_absoluteX="251dp"
+        tools:layout_editor_absoluteY="120dp" />
+
+
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="576dp"
+        android:layout_height="25dp"
+        app:srcCompat="@drawable/saturated_desaturated"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="143dp" />
+
+</android.support.constraint.ConstraintLayout>

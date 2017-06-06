@@ -14,7 +14,6 @@ import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 import com.philips.lighting.model.PHScene;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,12 +29,12 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
     Button arcticGreenButton;
     Button springBlossomButton;
     Button sunsetSceneButton;
-    Button savannahSceneButton;
+    Button hueValueButton;
 
     SeekBar seekBarArcticGreen;
     SeekBar seekBarSpringBlossom;
     SeekBar seekBarSunsetScene;
-    SeekBar seekBarSavannahScene;
+    SeekBar hueValueSeekbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +50,8 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
         sunsetSceneButton = (Button) findViewById(R.id.sunsetSceneButton);
         sunsetSceneButton.setOnClickListener(this);
 
-        savannahSceneButton = (Button) findViewById(R.id.savannahSceneButton);
-        savannahSceneButton.setOnClickListener(this);
+        hueValueButton = (Button) findViewById(R.id.hueValueButton);
+        hueValueButton.setOnClickListener(this);
 
         seekBarArcticGreen = (SeekBar) findViewById(R.id.seekBarArcticGreen);
         seekBarArcticGreen.setOnSeekBarChangeListener(this);
@@ -63,11 +62,11 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
         seekBarSunsetScene = (SeekBar) findViewById(R.id.seekBarSunsetScene);
         seekBarSunsetScene.setOnSeekBarChangeListener(this);
 
-        seekBarSavannahScene = (SeekBar) findViewById(R.id.seekBarSavannahScene);
-        seekBarSavannahScene.setOnSeekBarChangeListener(this);
-
         connectedIpTextView = (TextView) findViewById(R.id.connectedIpTextView);
         connectedAmountOfLampsTextView = (TextView) findViewById(R.id.connectedAmountOfLampsTextView);
+
+        hueValueSeekbar = (SeekBar) findViewById(R.id.hueValueSeekbar);
+        hueValueSeekbar.setOnSeekBarChangeListener(this);
 
     }
 
@@ -133,10 +132,10 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
                 // set scene sunset
                 break;
 
-            case R.id.savannahSceneButton:
+            case R.id.hueValueButton:
                 Log.d(TAG, "onClick: savannahScenebutton clicked");
 
-                // set scene savannah
+
                 break;
 
             default:
@@ -147,24 +146,37 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        Log.d(TAG, "onProgressChanged: progress in seekBarArcticGreen is now " + progress);
-        // progress meegeven aan een functie die de lightstate.setbrightness aanstuurt
-        PHLightState briState = brightnessAdjuster();
-<<<<<<< HEAD
-        Log.d(TAG, "SceneActivity: onProgressChanged: " + seekBar.getProgress());
-        for (PHLight thisConnectedHueList : connectedHueList)
-        {
-            verbondenBridge.updateLightState(thisConnectedHueList, briState);
-            Log.d(TAG, "brightnessAdjuster:  now adjust brightnessing for you");
-        }
-=======
-        for (PHLight thisConnectedHueList : connectedHueList)
-        {
-            verbondenBridge.updateLightState(thisConnectedHueList, briState);
-            Log.d(TAG, "brightnessAdjuster:  Adjusting brightnessing for you while sliding on Seekbar");
-        }
+        switch (seekBar.getId()) {
+            case R.id.seekBarArcticGreen:
 
->>>>>>> b0ef6b6da087fe895593a04f327d697639adfa9b
+                Log.d(TAG, "onProgressChanged: progress in seekBarArcticGreen is now " + progress);
+                // progress meegeven aan een functie die de lightstate.setbrightness aanstuurt
+                PHLightState briState = brightnessAdjuster();
+
+                for (PHLight thisConnectedHueList : connectedHueList) {
+                    verbondenBridge.updateLightState(thisConnectedHueList, briState);
+                    Log.d(TAG, "brightnessAdjuster:  Adjusting brightnessing for you while sliding on Seekbar");
+                }
+
+                break;
+
+            case R.id.hueValueSeekbar:
+
+                PHLightState hueState = hueAdjuster();
+
+                for (PHLight thisConnectedHueList : connectedHueList) {
+                    verbondenBridge.updateLightState(thisConnectedHueList, hueState);
+                    Log.d(TAG, "brightnessAdjuster:  Adjusting brightnessing for you while sliding on Seekbar");
+                }
+
+                break;
+
+            default:
+
+                break;
+
+
+        }
     }
 
     @Override
@@ -174,24 +186,43 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-<<<<<<< HEAD
-=======
+        switch (seekBar.getId()) {
+            case R.id.seekBarArcticGreen:
 
-        // lampen bleven flikkeren na grote verplaatsing op de de seekbar
-        // door de onprogressChanged methode, dus vandaar onderstaande code.
-        onProgressChanged(seekBar, seekBar.getProgress(), true);
+                // lampen bleven flikkeren na grote verplaatsing op de de seekbar
+                // door de onprogressChanged methode, dus vandaar onderstaande code.
+                onProgressChanged(seekBar, seekBar.getProgress(), true);
 
-        // lampen zetten naar de waarde die de user instelt op de Seekbar.
-        // eerst PHLightstate aanmaken, en die gelijkstellen aan de returnwaarde van de SeekbarArcticGreen brightnessAdjuster
->>>>>>> b0ef6b6da087fe895593a04f327d697639adfa9b
-        PHLightState briState = brightnessAdjuster();
-        Log.d(TAG, "SceneActivity: onStopTrackingTouch: " + seekBar.getProgress());
-        for (PHLight thisConnectedHueList : connectedHueList)
-        {
-            verbondenBridge.updateLightState(thisConnectedHueList, briState);
-            Log.d(TAG, "brightnessAdjuster:  now adjust brightnessing for you");
+                // lampen zetten naar de waarde die de user instelt op de Seekbar.
+                // eerst PHLightstate aanmaken, en die gelijkstellen aan de returnwaarde van de SeekbarArcticGreen brightnessAdjuster
+
+                PHLightState briState = brightnessAdjuster();
+                Log.d(TAG, "SceneActivity: onStopTrackingTouch: " + seekBar.getProgress());
+                for (PHLight thisConnectedHueList : connectedHueList) {
+                    verbondenBridge.updateLightState(thisConnectedHueList, briState);
+                    Log.d(TAG, "brightnessAdjuster:  now adjust brightness for you");
+                }
+
+                break;
+
+            case R.id.hueValueSeekbar:
+
+                PHLightState hueState = hueAdjuster();
+                hueState.setHue(hueValueSeekbar.getProgress());
+
+                for (PHLight thisConnectedHueList : connectedHueList) {
+                    verbondenBridge.updateLightState(thisConnectedHueList, hueState);
+                    Log.d(TAG, "brightnessAdjuster:  Adjusting brightnessing for you while sliding on Seekbar");
+                }
+
+                break;
+
+            default:
+
+                break;
+
+
         }
-
     }
 
     private PHLightState brightnessAdjuster() {
@@ -200,6 +231,14 @@ public class SceneActivity extends AppCompatActivity implements View.OnClickList
         PHLightState lightStateBright = new PHLightState();
         lightStateBright.setBrightness(seekBarArcticGreen.getProgress());
         return lightStateBright;
+    }
+
+    private PHLightState hueAdjuster()
+    {
+        Log.d(TAG, "hueAdjuster: " + hueValueSeekbar.getProgress());
+        PHLightState hueLightState = new PHLightState();
+        hueLightState.setHue(hueValueSeekbar.getProgress());
+        return hueLightState;
     }
 
 

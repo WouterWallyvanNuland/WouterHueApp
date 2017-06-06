@@ -123,28 +123,26 @@
         />
 
     <Button
-        android:id="@+id/savannahSceneButton"
+        android:id="@+id/hueValueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textViewAskUserToSetScene"
-        android:layout_alignStart="@+id/textViewAskUserToSetScene"
-        android:layout_below="@+id/seekBarSunsetScene"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="29dp"
         android:background="@android:color/holo_red_light"
-        android:text="Savannah" />
+        android:text="0k      Pick a Hue Value        65K"
+        android:layout_below="@+id/seekBarSunsetScene"
+        android:layout_alignStart="@+id/hueValueSeekbar"
+        android:layout_alignEnd="@+id/hueValueSeekbar" />
 
     <SeekBar
-        android:id="@+id/seekBarSavannahScene"
+        android:id="@+id/hueValueSeekbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/textViewAskUserToSetScene"
         android:layout_alignStart="@+id/textViewAskUserToSetScene"
-        android:layout_below="@+id/savannahSceneButton"
+        android:layout_below="@+id/hueValueButton"
         android:layout_marginTop="15dp"
-        android:max="255"
-        android:progress="128"
-        />
+        android:max="65000"
+        android:progress="32500" />
 
 
 </RelativeLayout>

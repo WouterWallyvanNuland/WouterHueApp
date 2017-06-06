@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity implements ActivityChecker {
     // create all variables that i need in my Main.
     private PHHueSDK phHueSDK;
     private WouterHueListener myListener;
-    private PHBridge verbondenBridge;
-    int insertedIp = 7;
 
     //SharedPref data
     private String ip;

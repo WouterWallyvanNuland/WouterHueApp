@@ -15,12 +15,14 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".FindingBridgeActivity" />
         <activity android:name=".LampActivity" />
         <activity android:name=".SceneActivity" />
+        <activity android:name=".ColorPickerActivity" android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

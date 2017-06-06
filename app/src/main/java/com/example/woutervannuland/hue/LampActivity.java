@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
     Button colorLoopButton;
     Button stopLoopButton;
+    ImageView coloredHueImage;
     Button redButton;
     Button greenButton;
     Button blueButton;
@@ -34,6 +36,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     TextView ipConnectedBridgeTextView;
     TextView connectedAmountOfLamps;
     SeekBar saturationSeekbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
         stopLoopButton = (Button) findViewById(R.id.StopLoopButton);
         stopLoopButton.setOnClickListener(this);
+
+        coloredHueImage = (ImageView) findViewById(R.id.coloredHueImage);
+        coloredHueImage.setOnClickListener(this);
 
         redButton = (Button) findViewById(R.id.redButton);
         redButton.setOnClickListener(this);
@@ -70,8 +76,6 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
         saturationSeekbar = (SeekBar) findViewById(R.id.saturationSeekbar);
         saturationSeekbar.setOnSeekBarChangeListener(this);
-
-
 
     }
 
@@ -166,6 +170,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                 toSceneActivity();
                 break;
 
+            case R.id.coloredHueImage:
+                toColorPickerActivity();
+
             default:
                 break;
             }
@@ -225,6 +232,14 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     private void toSceneActivity() {
         Intent i = new Intent(this, SceneActivity.class);
         startActivity(i);
+    }
+
+    private void toColorPickerActivity() {
+        // now you go there when you push the image. Dont know if this will work.
+
+        Intent i = new Intent(this, ColorPickerActivity.class);
+        startActivity(i);
+
     }
 
     private PHLightState saturationAdjuster()
