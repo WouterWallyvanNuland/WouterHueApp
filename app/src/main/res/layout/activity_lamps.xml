@@ -9,7 +9,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/connectedBridgeInfoLayout"
+        android:id="@+id/topColorPickerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_below="@id/connectedBridgeInfoLayout">
+        android:layout_below="@id/topColorPickerLayout">
 
         <Button
             android:id="@+id/clearBridgeButton"

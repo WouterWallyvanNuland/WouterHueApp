@@ -21,33 +21,41 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
     private PHBridge verbondenBridge;
     private List<PHLight> connectedHueList;
 
-    Button colorLoopButton;
-    Button stopLoopButton;
-
     ImageView colorPickerHd;
+    ImageView saturationImageView;
+    ImageView brightnessImageView;
 
     TextView setColor;
+    TextView setSaturationTextView;
+    TextView setBrightnessTextView;
 
+    SeekBar setSaturationSeekBar;
     SeekBar setHueValueSeekBar;
-
+    SeekBar setBrightnessSeekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_picker);
 
-        colorLoopButton = (Button) findViewById(R.id.ColorLoopButton);
-        colorLoopButton.setOnClickListener(this);
-
-        stopLoopButton = (Button) findViewById(R.id.StopLoopButton);
-        stopLoopButton.setOnClickListener(this);
-
         colorPickerHd = (ImageView) findViewById(R.id.colorPickerHd);
+        saturationImageView = (ImageView) findViewById(R.id.saturationImageView);
+        brightnessImageView = (ImageView) findViewById(R.id.brightnessImageView);
+
 
         setColor = (TextView) findViewById(R.id.connectedIpTextView);
+        setSaturationTextView = (TextView) findViewById(R.id.setSaturationTextView);
+        setBrightnessTextView = (TextView) findViewById(R.id.brightnessTextView);
+
 
         setHueValueSeekBar = (SeekBar) findViewById(R.id.setHueValueSeekBar);
         setHueValueSeekBar.setOnSeekBarChangeListener(this);
+
+        setSaturationSeekBar = (SeekBar) findViewById(R.id.setSaturationSeekBar);
+        setSaturationSeekBar.setOnSeekBarChangeListener(this);
+
+        setBrightnessSeekBar = (SeekBar) findViewById(R.id.setBrightnessSeekBar);
+        setBrightnessSeekBar.setOnSeekBarChangeListener(this);
 
     }
 
@@ -61,12 +69,7 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    private PHLightState hueAdjuster() {
 
-        PHLightState hueLightState = new PHLightState();
-        hueLightState.setHue(setHueValueSeekBar.getProgress());
-        return hueLightState;
-    }
 
     @Override
     public void onClick(View v) {
@@ -90,6 +93,21 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
                 }
 
                 break;
+
+            case R.id.saturationSeekbar:
+
+                PHLightState saturationState = saturationAdjuster();
+
+                for (PHLight thisConnectedHueList : connectedHueList) {
+                    verbondenBridge.updateLightState(thisConnectedHueList, saturationState);
+                }
+            case R.id.setBrightnessSeekBar:
+
+                PHLightState brightState = brightnessAdjuster();
+
+                for (PHLight thisConnectedHueList : connectedHueList) {
+                    verbondenBridge.updateLightState(thisConnectedHueList, brightState);
+                }
 
             default:
                 break;
@@ -119,9 +137,50 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
 
                 break;
 
+            case R.id.setSaturationSeekBar:
+
+                PHLightState saturationState = saturationAdjuster();
+                onProgressChanged(seekBar, seekBar.getProgress(), true);
+
+                for (PHLight thisConnectedHueList : connectedHueList) {
+                    verbondenBridge.updateLightState(thisConnectedHueList, saturationState);
+                }
+
+            case R.id.setBrightnessSeekBar:
+
+                PHLightState brightState = brightnessAdjuster();
+                onProgressChanged(seekBar, seekBar.getProgress(), true);
+
+                for (PHLight thisConnectedHueList : connectedHueList) {
+                    verbondenBridge.updateLightState(thisConnectedHueList, brightState);
+                }
+
+
             default:
                 break;
 
         }
+    }
+
+    private PHLightState hueAdjuster() {
+
+        PHLightState hueLightState = new PHLightState();
+        hueLightState.setHue(setHueValueSeekBar.getProgress());
+        return hueLightState;
+    }
+
+    public PHLightState saturationAdjuster() {
+        PHLightState saturationState = new PHLightState();
+        saturationState.setSaturation(setSaturationSeekBar.getProgress());
+
+        return saturationState;
+
+    }
+
+    public PHLightState brightnessAdjuster() {
+        PHLightState brightnessState = new PHLightState();
+        brightnessState.setBrightness(setBrightnessSeekBar.getProgress());
+
+        return  brightnessState;
     }
 }

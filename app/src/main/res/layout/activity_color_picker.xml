@@ -1,55 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     tools:context="com.example.woutervannuland.hue.ColorPickerActivity">
 
-    <TextView
-        android:id="@+id/setColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/topColorPickerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:gravity="start"
-        android:text="Set Color"
-        tools:layout_editor_absoluteX="266dp"
-        tools:layout_editor_absoluteY="6dp" />
+        android:layout_alignParentStart="true">
 
-    <ImageView
-        android:id="@+id/colorPickerHd"
-        android:layout_width="576dp"
-        android:layout_height="47dp"
-        app:srcCompat="@drawable/color_picker_hd"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="33dp" />
+        <TextView
+            android:id="@+id/setColor"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:gravity="start"
+            android:text="Set Color"
+            android:layout_marginStart="266dp"
+            android:layout_marginTop="6dp" />
 
-    <SeekBar
-        android:id="@+id/setHueValueSeekBar"
-        android:layout_width="576dp"
-        android:layout_height="22dp"
-        android:max="65000"
-        android:progress="32500"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="89dp" />
+        <ImageView
+            android:id="@+id/colorPickerHd"
+            android:layout_width="576dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/color_picker_hd"
+            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/setHueValueSeekBar" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set Saturation"
-        tools:layout_editor_absoluteX="251dp"
-        tools:layout_editor_absoluteY="120dp" />
+        <SeekBar
+            android:id="@+id/setHueValueSeekBar"
+            android:layout_width="576dp"
+            android:layout_height="22dp"
+            android:max="65000"
+            android:progress="32500"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="89dp"/>
 
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/midColorPickerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/topColorPickerLayout"
+        >
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="576dp"
-        android:layout_height="25dp"
-        app:srcCompat="@drawable/saturated_desaturated"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="143dp" />
+        <TextView
+            android:id="@+id/setSaturationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:text="Set Saturation" />
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/saturationImageView"
+            android:layout_width="576dp"
+            android:layout_height="25dp"
+            android:layout_alignStart="@+id/setSaturationSeekBar"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/saturated_desaturated" />
+
+        <SeekBar
+            android:id="@+id/setSaturationSeekBar"
+            android:layout_width="576dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="89dp"
+            android:max="255"
+            android:progress="128" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottomColorPickerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/midColorPickerLayout"
+        >
+
+        <TextView
+            android:id="@+id/brightnessTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="Set Brightness" />
+
+        <ImageView
+            android:id="@+id/brightnessImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/brightness_scaler_image" />
+
+        <SeekBar
+            android:id="@+id/setBrightnessSeekBar"
+            android:layout_width="576dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="89dp"
+            android:max="100"
+            android:progress="50" />
+
+        </RelativeLayout>
+
+</RelativeLayout>
