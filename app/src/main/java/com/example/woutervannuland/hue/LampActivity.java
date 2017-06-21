@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 import static com.example.woutervannuland.hue.FindingBridgeActivity.PREFS_NAME;
 
 public class LampActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
-    private PHBridge verbondenBridge;
+    private PHBridge connectedBridge;
     private List<PHLight> connectedHueList;
 
     Button colorLoopButton;
@@ -36,7 +36,6 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     TextView ipConnectedBridgeTextView;
     TextView connectedAmountOfLamps;
     SeekBar saturationSeekbar;
-    PHLightState lightStateBright = new PHLightState();
 
 
     @Override
@@ -84,13 +83,13 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         // hier heb je de bridge weer
-        verbondenBridge = PHHueSDK.getInstance().getSelectedBridge();
+        connectedBridge = PHHueSDK.getInstance().getSelectedBridge();
 
         // en hier alle lampen
-        List<PHLight> allLights = verbondenBridge.getResourceCache().getAllLights();
+        List<PHLight> allLights = connectedBridge.getResourceCache().getAllLights();
         connectedHueList = allLights;
 
-        String connectedIP = verbondenBridge.getResourceCache().getBridgeConfiguration().getIpAddress();
+        String connectedIP = connectedBridge.getResourceCache().getBridgeConfiguration().getIpAddress();
         int tmp = connectedHueList.size();
         ipConnectedBridgeTextView.setText(("Ip-adres: " + connectedIP));
         connectedAmountOfLamps.setText("Verbonden met " + tmp + " lampen..");
@@ -100,9 +99,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.blueButton:
                 // both lights to BLUE
-                if (verbondenBridge != null) {
+                if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
-                        verbondenBridge.updateLightState(thisConnectedHueList, changeHue0ToColorBlue());
+                        connectedBridge.updateLightState(thisConnectedHueList, changeHue0ToColorBlue());
                     }
                     System.out.println("Changed all lights to color Blue via button!");
                 }
@@ -110,9 +109,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.redButton:
                 // both lights to RED
-                if (verbondenBridge != null) {
+                if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
-                        verbondenBridge.updateLightState(thisConnectedHueList, changeHue0ToColorRed());
+                        connectedBridge.updateLightState(thisConnectedHueList, changeHue0ToColorRed());
                     }
                     System.out.println("Changed all lights to color Red via button!");
 
@@ -121,9 +120,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.greenButton:
                 // both lights to GREEN
-                if (verbondenBridge != null) {
+                if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
-                        verbondenBridge.updateLightState(thisConnectedHueList, changeHue0ToColorGreen());
+                        connectedBridge.updateLightState(thisConnectedHueList, changeHue0ToColorGreen());
                     }
                     System.out.println("Changed all lights to color Green via button!");
                 }
@@ -132,9 +131,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.StopLoopButton:
                 // both lights need to stop with their colorLoop. Change back to last known color.
-                if (verbondenBridge != null) {
+                if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
-                        verbondenBridge.updateLightState(thisConnectedHueList, loopStop0());
+                        connectedBridge.updateLightState(thisConnectedHueList, loopStop0());
                     }
                     System.out.println("Quit loop and go back to last known color before loop started ");
                 }
@@ -142,9 +141,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.ColorLoopButton:
                 // both lights to ColorLoop mode!
-                if (verbondenBridge != null) {
+                if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
-                        verbondenBridge.updateLightState(thisConnectedHueList, loopEffectHue0());
+                        connectedBridge.updateLightState(thisConnectedHueList, loopEffectHue0());
                     }
                     System.out.println("HoopdiLoop! Demonstrating all the colors in a loop on all lights ");
                 }
@@ -152,9 +151,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.yellowButton:
                 // both ligths to YELLOW!
-                if (verbondenBridge != null) {
+                if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
-                        verbondenBridge.updateLightState(thisConnectedHueList, changeHue0ToColorYellow());
+                        connectedBridge.updateLightState(thisConnectedHueList, changeHue0ToColorYellow());
                     }
                 }
                 break;
@@ -169,7 +168,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.lightDimmButton:
                // toSceneActivity();
-                if (verbondenBridge != null) {
+                if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
                         brightnessFadeOut(thisConnectedHueList);
                         //verbondenBridge.updateLightState(thisConnectedHueList, brightnessFadeOut(thisConnectedHueList));
@@ -239,21 +238,9 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         return redState0;
     }
 
-    private void toSceneActivity() {
-        Intent i = new Intent(this, SceneActivity.class);
-        startActivity(i);
-    }
 
-    private void toColorPickerActivity() {
-        // now you go there when you push the image. Dont know if this will work.
-
-        Intent i = new Intent(this, ColorPickerActivity.class);
-        startActivity(i);
-
-    }
 
     private PHLightState brightnessFadeOut(PHLight light) {
-
 
         PHLightState lightState = light.getLastKnownLightState();
 
@@ -270,7 +257,11 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
 
-        verbondenBridge.updateLightState(light, lightState);
+//        for (PHLight lights : connectedHueList) {
+            connectedBridge.updateLightState(light, lightState);
+       // }
+
+
 
         return brightnessFadeOut(light);
 
@@ -284,7 +275,18 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         return lightStateSaturation;
     }
 
+
+    private void toColorPickerActivity() {
+        // now you go there when you push the image. Dont know if this will work.
+
+        Intent i = new Intent(this, ColorPickerActivity.class);
+        startActivity(i);
+
+    }
     // underneath are override methods for the Seekbar.
+
+
+
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -292,7 +294,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         System.out.println("Seekbar Saturation used");
         for (PHLight thisConnectedHueList : connectedHueList)
         {
-            verbondenBridge.updateLightState(thisConnectedHueList, lightStateSaturation);
+            connectedBridge.updateLightState(thisConnectedHueList, lightStateSaturation);
 
         }
     }

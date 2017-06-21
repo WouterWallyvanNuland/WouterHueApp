@@ -2,9 +2,7 @@ package com.example.woutervannuland.hue;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -18,7 +16,7 @@ import java.util.List;
 
 public class ColorPickerActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
-    private PHBridge verbondenBridge;
+    private PHBridge connectedBridge;
     private List<PHLight> connectedHueList;
 
     ImageView colorPickerHd;
@@ -63,20 +61,9 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
     protected void onResume() {
         super.onResume();
 
-        verbondenBridge = PHHueSDK.getInstance().getSelectedBridge();
+        connectedBridge = PHHueSDK.getInstance().getSelectedBridge();
 
-        connectedHueList = verbondenBridge.getResourceCache().getAllLights();
-
-    }
-
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ColorLoopButton:
-
-        }
+        connectedHueList = connectedBridge.getResourceCache().getAllLights();
 
     }
 
@@ -89,7 +76,7 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
                 PHLightState hueColorState = hueAdjuster();
 
                 for (PHLight thisConnectedHueList : connectedHueList) {
-                    verbondenBridge.updateLightState(thisConnectedHueList, hueColorState);
+                    connectedBridge.updateLightState(thisConnectedHueList, hueColorState);
                 }
 
                 break;
@@ -99,14 +86,14 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
                 PHLightState saturationState = saturationAdjuster();
 
                 for (PHLight thisConnectedHueList : connectedHueList) {
-                    verbondenBridge.updateLightState(thisConnectedHueList, saturationState);
+                    connectedBridge.updateLightState(thisConnectedHueList, saturationState);
                 }
             case R.id.setBrightnessSeekBar:
 
                 PHLightState brightState = brightnessAdjuster();
 
                 for (PHLight thisConnectedHueList : connectedHueList) {
-                    verbondenBridge.updateLightState(thisConnectedHueList, brightState);
+                    connectedBridge.updateLightState(thisConnectedHueList, brightState);
                 }
 
             default:
@@ -132,7 +119,7 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
 
 
                 for (PHLight thisConnectedHueList : connectedHueList) {
-                    verbondenBridge.updateLightState(thisConnectedHueList, hueColorState);
+                    connectedBridge.updateLightState(thisConnectedHueList, hueColorState);
                 }
 
                 break;
@@ -143,7 +130,7 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
                 onProgressChanged(seekBar, seekBar.getProgress(), true);
 
                 for (PHLight thisConnectedHueList : connectedHueList) {
-                    verbondenBridge.updateLightState(thisConnectedHueList, saturationState);
+                    connectedBridge.updateLightState(thisConnectedHueList, saturationState);
                 }
 
             case R.id.setBrightnessSeekBar:
@@ -152,7 +139,7 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
                 onProgressChanged(seekBar, seekBar.getProgress(), true);
 
                 for (PHLight thisConnectedHueList : connectedHueList) {
-                    verbondenBridge.updateLightState(thisConnectedHueList, brightState);
+                    connectedBridge.updateLightState(thisConnectedHueList, brightState);
                 }
 
 
@@ -182,5 +169,10 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
         brightnessState.setBrightness(setBrightnessSeekBar.getProgress());
 
         return  brightnessState;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
