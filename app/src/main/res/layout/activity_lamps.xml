@@ -48,18 +48,18 @@
             android:textColor="@android:color/white" />
 
         <Button
-            android:id="@+id/goToSceneButton"
+            android:id="@+id/lightDimmButton"
             android:layout_width="148dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@android:color/black"
-            android:text="Go to scene"
-            android:textColor="@android:color/white"
             android:layout_alignBaseline="@id/clearBridgeButton"
             android:layout_alignBottom="@id/clearBridgeButton"
-            android:layout_toStartOf="@id/clearBridgeButton" />
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toStartOf="@id/clearBridgeButton"
+            android:background="@android:color/black"
+            android:text="Dimm lights"
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 
     <RelativeLayout

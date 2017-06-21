@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,6 +16,7 @@ import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.example.woutervannuland.hue.FindingBridgeActivity.PREFS_NAME;
 
@@ -32,10 +32,11 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     Button blueButton;
     Button yellowButton;
     Button clearButton;
-    Button goToSceneButton;
+    Button lightDimmButton;
     TextView ipConnectedBridgeTextView;
     TextView connectedAmountOfLamps;
     SeekBar saturationSeekbar;
+    PHLightState lightStateBright = new PHLightState();
 
 
     @Override
@@ -68,8 +69,8 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         clearButton = (Button) findViewById(R.id.clearBridgeButton);
         clearButton.setOnClickListener (this);
 
-        goToSceneButton = (Button) findViewById(R.id.goToSceneButton);
-        goToSceneButton.setOnClickListener(this);
+        lightDimmButton = (Button) findViewById(R.id.lightDimmButton);
+        lightDimmButton.setOnClickListener(this);
 
         ipConnectedBridgeTextView = (TextView) findViewById(R.id.ipConnectedBridgeTextView);
         connectedAmountOfLamps = (TextView) findViewById(R.id.connectedAmountOfLamps);
@@ -166,8 +167,17 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-            case R.id.goToSceneButton:
-                toSceneActivity();
+            case R.id.lightDimmButton:
+               // toSceneActivity();
+                if (verbondenBridge != null) {
+                    for (PHLight thisConnectedHueList : connectedHueList) {
+                        brightnessFadeOut(thisConnectedHueList);
+                        //verbondenBridge.updateLightState(thisConnectedHueList, brightnessFadeOut(thisConnectedHueList));
+                    }
+
+                }
+
+
                 break;
 
             case R.id.coloredHueImage:
@@ -239,6 +249,31 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent i = new Intent(this, ColorPickerActivity.class);
         startActivity(i);
+
+    }
+
+    private PHLightState brightnessFadeOut(PHLight light) {
+
+
+        PHLightState lightState = light.getLastKnownLightState();
+
+        int brightness = lightState.getBrightness();
+
+        if (brightness <= 1) {
+            return lightState;
+        }
+
+        lightState.setBrightness(brightness -5);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        verbondenBridge.updateLightState(light, lightState);
+
+        return brightnessFadeOut(light);
+
 
     }
 
