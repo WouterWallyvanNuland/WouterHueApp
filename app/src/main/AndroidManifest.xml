@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".FindingBridgeActivity" />
         <activity android:name=".LampActivity" />
-        <activity android:name=".ColorPickerActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name=".ColorPickerActivity" android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

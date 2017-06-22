@@ -16,7 +16,6 @@ import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static com.example.woutervannuland.hue.FindingBridgeActivity.PREFS_NAME;
 
@@ -101,7 +100,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                 // both lights to BLUE
                 if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
-                        connectedBridge.updateLightState(thisConnectedHueList, changeHue0ToColorBlue());
+                        connectedBridge.updateLightState(thisConnectedHueList, changeHueToColorBlue());
                     }
                     System.out.println("Changed all lights to color Blue via button!");
                 }
@@ -111,7 +110,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                 // both lights to RED
                 if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
-                        connectedBridge.updateLightState(thisConnectedHueList, changeHue0ToColorRed());
+                        connectedBridge.updateLightState(thisConnectedHueList, changeHueToColorRed());
                     }
                     System.out.println("Changed all lights to color Red via button!");
 
@@ -122,7 +121,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                 // both lights to GREEN
                 if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
-                        connectedBridge.updateLightState(thisConnectedHueList, changeHue0ToColorGreen());
+                        connectedBridge.updateLightState(thisConnectedHueList, changeHueToColorGreen());
                     }
                     System.out.println("Changed all lights to color Green via button!");
                 }
@@ -133,7 +132,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                 // both lights need to stop with their colorLoop. Change back to last known color.
                 if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
-                        connectedBridge.updateLightState(thisConnectedHueList, loopStop0());
+                        connectedBridge.updateLightState(thisConnectedHueList, loopStop());
                     }
                     System.out.println("Quit loop and go back to last known color before loop started ");
                 }
@@ -143,7 +142,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                 // both lights to ColorLoop mode!
                 if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
-                        connectedBridge.updateLightState(thisConnectedHueList, loopEffectHue0());
+                        connectedBridge.updateLightState(thisConnectedHueList, loopEffectHue());
                     }
                     System.out.println("HoopdiLoop! Demonstrating all the colors in a loop on all lights ");
                 }
@@ -153,7 +152,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
                 // both ligths to YELLOW!
                 if (connectedBridge != null) {
                     for (PHLight thisConnectedHueList : connectedHueList) {
-                        connectedBridge.updateLightState(thisConnectedHueList, changeHue0ToColorYellow());
+                        connectedBridge.updateLightState(thisConnectedHueList, changeHueToColorYellow());
                     }
                 }
                 break;
@@ -187,21 +186,21 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-    public PHLightState loopEffectHue0() {
+    public PHLightState loopEffectHue() {
         final PHLightState lightState0 = new PHLightState();
         lightState0.setEffectMode(PHLight.PHLightEffectMode.EFFECT_COLORLOOP);
 
         return lightState0;
     }
 
-    public PHLightState loopStop0() {
+    public PHLightState loopStop() {
         PHLightState lightState0 = new PHLightState();
         lightState0.setEffectMode(PHLight.PHLightEffectMode.EFFECT_NONE);
 
         return lightState0;
     }
 
-    public PHLightState changeHue0ToColorYellow() {
+    public PHLightState changeHueToColorYellow() {
         final PHLightState yellowState0 = new PHLightState();
         yellowState0.setHue(12750, true);
     //        yellowState.setX(0.5425f);
@@ -210,7 +209,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         return yellowState0;
     }
 
-    public PHLightState changeHue0ToColorGreen() {
+    public PHLightState changeHueToColorGreen() {
         final PHLightState greenState0 = new PHLightState();
         greenState0.setX(0.4100f);
         greenState0.setY(0.51721f);
@@ -218,7 +217,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         return greenState0;
     }
 
-    public PHLightState changeHue0ToColorBlue() {
+    public PHLightState changeHueToColorBlue() {
         final PHLightState blueState0 = new PHLightState();
           blueState0.setHue(46920, true);
 
@@ -228,7 +227,7 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
         return blueState0;
     }
 
-    public PHLightState changeHue0ToColorRed() {
+    public PHLightState changeHueToColorRed() {
         final PHLightState redState0 = new PHLightState();
         redState0.setHue(0, true);
 

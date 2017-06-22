@@ -91,9 +91,10 @@ public class MainActivity extends AppCompatActivity implements ActivityChecker {
         toFindingBridgeActivity();
     }
 
+
     @Override
     public void ikHebAccessPointsGevonden(List<PHAccessPoint> dezeVondIk) {
-        // Krijgen we hier niet
+
     }
 
     @Override
