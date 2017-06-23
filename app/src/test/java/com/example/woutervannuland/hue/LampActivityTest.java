@@ -19,14 +19,14 @@ import org.robolectric.annotation.Config;
 //om er voor te zorgen dat de flow van de app gedaan kan worden maak je de mcontroller aan.
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class MainActivityTest {
+public class LampActivityTest {
 
-    private ActivityController<MainActivity> mController = Robolectric.buildActivity(MainActivity.class);
-    private MainActivity activity;
+    private ActivityController<LampActivity> mController = Robolectric.buildActivity(LampActivity.class);
+    private LampActivity activity;
 
     @Before
     public void setUp() throws Exception {
-        Robolectric.buildActivity(MainActivity.class).create();
+        Robolectric.buildActivity(LampActivity.class).create();
         this.mController.create().start().resume();
         activity = mController.get();
     }
@@ -39,9 +39,8 @@ public class MainActivityTest {
 
     @Test
     public void created() throws Exception {
-        Assert.assertNotNull(activity.getPhHueSDK());
-        Assert.assertEquals("WouterHue", activity.getPhHueSDK().getAppName());
-        Assert.assertEquals(android.os.Build.MODEL, activity.getPhHueSDK().getDeviceName());
+        Assert.assertNotNull(activity.loopEffectHue());
+
     }
 
 

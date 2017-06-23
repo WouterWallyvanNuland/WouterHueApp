@@ -19,14 +19,14 @@ import org.robolectric.annotation.Config;
 //om er voor te zorgen dat de flow van de app gedaan kan worden maak je de mcontroller aan.
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class MainActivityTest {
+public class FindingBridgeActivityTest {
 
-    private ActivityController<MainActivity> mController = Robolectric.buildActivity(MainActivity.class);
-    private MainActivity activity;
+    private ActivityController<FindingBridgeActivity> mController = Robolectric.buildActivity(FindingBridgeActivity.class);
+    private FindingBridgeActivity activity;
 
     @Before
     public void setUp() throws Exception {
-        Robolectric.buildActivity(MainActivity.class).create();
+        Robolectric.buildActivity(FindingBridgeActivity.class).create();
         this.mController.create().start().resume();
         activity = mController.get();
     }
@@ -39,9 +39,10 @@ public class MainActivityTest {
 
     @Test
     public void created() throws Exception {
-        Assert.assertNotNull(activity.getPhHueSDK());
-        Assert.assertEquals("WouterHue", activity.getPhHueSDK().getAppName());
-        Assert.assertEquals(android.os.Build.MODEL, activity.getPhHueSDK().getDeviceName());
+        Assert.assertNotNull(activity.mp);
+        Assert.assertNotNull(activity.afteller);
+        Assert.assertNotNull(activity.textViewAskUserToSelectBridge);
+
     }
 
 

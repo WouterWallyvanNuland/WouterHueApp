@@ -23,18 +23,18 @@ public class LampActivity extends AppCompatActivity implements View.OnClickListe
     private PHBridge connectedBridge;
     private List<PHLight> connectedHueList;
 
-    Button colorLoopButton;
-    Button stopLoopButton;
-    ImageView coloredHueImage;
-    Button redButton;
-    Button greenButton;
-    Button blueButton;
-    Button yellowButton;
-    Button clearButton;
-    Button lightDimmButton;
-    TextView ipConnectedBridgeTextView;
-    TextView connectedAmountOfLamps;
-    SeekBar saturationSeekbar;
+    private Button colorLoopButton;
+    private Button stopLoopButton;
+    private ImageView coloredHueImage;
+    private Button redButton;
+    private Button greenButton;
+    private  Button blueButton;
+    private Button yellowButton;
+    private Button clearButton;
+    private Button lightDimmButton;
+    private TextView ipConnectedBridgeTextView;
+    private TextView connectedAmountOfLamps;
+    private SeekBar saturationSeekbar;
 
 
     @Override

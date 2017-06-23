@@ -23,13 +23,13 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
     ImageView saturationImageView;
     ImageView brightnessImageView;
 
-    TextView setColor;
-    TextView setSaturationTextView;
-    TextView setBrightnessTextView;
+    private TextView setColor;
+    private TextView setSaturationTextView;
+    private TextView setBrightnessTextView;
 
-    SeekBar setSaturationSeekBar;
-    SeekBar setHueValueSeekBar;
-    SeekBar setBrightnessSeekBar;
+    private SeekBar setSaturationSeekBar;
+    private SeekBar setHueValueSeekBar;
+    private SeekBar setBrightnessSeekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +149,7 @@ public class ColorPickerActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private PHLightState hueAdjuster() {
+    public PHLightState hueAdjuster() {
 
         PHLightState hueLightState = new PHLightState();
         hueLightState.setHue(setHueValueSeekBar.getProgress());
